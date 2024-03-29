@@ -1,4 +1,4 @@
-import logo from "./logo.svg";
+import logo from "./only_s.png";
 import backend from "./backend.png";
 import creator from "./creator.png";
 import mobile from "./mobile.png";
@@ -30,6 +30,14 @@ import carrent from "./carrent.png";
 import jobit from "./jobit.png";
 import tripguide from "./tripguide.png";
 
+// project image
+import blogify from './blogify.png'
+import tasker from './tasker.png'
+import Readers_Realm from './readers_realm.png'
+
+
+// live site logo
+import liveSite from './download.jpg'
 export {
   logo,
   backend,
@@ -59,4 +67,8 @@ export {
   carrent,
   jobit,
   tripguide,
+  blogify,
+  Readers_Realm,
+  tasker,
+  liveSite
 };

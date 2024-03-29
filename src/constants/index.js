@@ -1,28 +1,28 @@
 import {
-  mobile,
   backend,
   creator,
-  web,
-  javascript,
-  typescript,
-  html,
   css,
+  figma,
+  git,
+  html,
+  javascript,
+  jobit,
+  meta,
+  mobile,
+  mongodb,
+  nodejs,
   reactjs,
   redux,
-  tailwind,
-  nodejs,
-  mongodb,
-  git,
-  figma,
-  docker,
-  meta,
-  starbucks,
-  tesla,
   shopify,
-  carrent,
-  jobit,
-  tripguide,
+  starbucks,
+  tailwind,
+  tesla,
   threejs,
+  tripguide,
+  typescript,
+  web,
+  blogify,
+  tasker,Readers_Realm
 } from "../assets";
 
 export const navLinks = [
@@ -46,15 +46,15 @@ const services = [
     icon: web,
   },
   {
-    title: "React Native Developer",
+    title: "Next js",
     icon: mobile,
   },
   {
-    title: "Backend Developer",
+    title: "React js",
     icon: backend,
   },
   {
-    title: "Content Creator",
+    title: "Django",
     icon: creator,
   },
 ];
@@ -108,10 +108,10 @@ const technologies = [
     name: "figma",
     icon: figma,
   },
-  {
-    name: "docker",
-    icon: docker,
-  },
+  // {
+  //   name: "docker",
+  //   icon: docker,
+  // },
 ];
 
 const experiences = [
@@ -198,16 +198,16 @@ const testimonials = [
 
 const projects = [
   {
-    name: "Car Rent",
+    name: "BlogiFy",
     description:
-      "Web-based platform that allows users to search, book, and manage car rentals from various providers, providing a convenient and efficient solution for transportation needs.",
+      "Implemented an Enhanced Authentication and Profile Editing system using JWT token-based authentication, enabling users to securely edit their profiles. Developed Dynamic Blog Loading functionality with infinite scroll feature, facilitating seamless loading of blogs. ",
     tags: [
       {
         name: "react",
         color: "blue-text-gradient",
       },
       {
-        name: "mongodb",
+        name: "Django(DRF)",
         color: "green-text-gradient",
       },
       {
@@ -215,41 +215,43 @@ const projects = [
         color: "pink-text-gradient",
       },
     ],
-    image: carrent,
-    source_code_link: "https://github.com/",
+    image: blogify,
+    source_code_link: "https://github.com/Swapno963/BlogiFy_Backend",
+    live_site_link: "https://blogify-teal-three.vercel.app/",
   },
   {
-    name: "Job IT",
+    name: "Reader Realm",
     description:
-      "Web application that enables users to search for job openings, view estimated salary ranges for positions, and locate available jobs based on their current location.",
+      "Implementing a timeout mechanism for user sessions, automatically logging users out after 5 minutes of inactivity and limiting sessions to 30 minutes. Users can borrow books, leave reviews, and return them, with a profile feature enabling monitoring of borrowing activity and managing loan return dates.",
     tags: [
       {
-        name: "react",
+        name: "Django(MVT)",
         color: "blue-text-gradient",
       },
       {
-        name: "restapi",
+        name: "html",
         color: "green-text-gradient",
       },
       {
-        name: "scss",
+        name: "tailwind",
         color: "pink-text-gradient",
       },
     ],
-    image: jobit,
-    source_code_link: "https://github.com/",
+    image: tasker,
+    source_code_link: "https://github.com/Swapno963/Readers_Realm",
+    live_site_link: "https://readers-realm.onrender.com/",
   },
   {
-    name: "Trip Guide",
+    name: "Effortless Plan ",
     description:
-      "A comprehensive travel booking platform that allows users to book flights, hotels, and rental cars, and offers curated recommendations for popular destinations.",
+      "On the homepage, users can view features and reviews. They can create tasks displayed in a table format. Additionally, an authentication system has been implemented.",
     tags: [
       {
-        name: "nextjs",
+        name: "Django",
         color: "blue-text-gradient",
       },
       {
-        name: "supabase",
+        name: "Html",
         color: "green-text-gradient",
       },
       {
@@ -257,9 +259,10 @@ const projects = [
         color: "pink-text-gradient",
       },
     ],
-    image: tripguide,
-    source_code_link: "https://github.com/",
+    image: Readers_Realm,
+    source_code_link: "https://github.com/Swapno963/EffortlessPlan",
+    live_site_link: "https://effortless-plan.onrender.com/",
   },
 ];
 
-export { services, technologies, experiences, testimonials, projects };
+export { experiences, projects, services, technologies, testimonials };
