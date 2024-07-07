@@ -1,11 +1,11 @@
-import logo from "./only_s.png";
 import backend from "./backend.png";
+import close from "./close.svg";
 import creator from "./creator.png";
-import mobile from "./mobile.png";
-import web from "./web.png";
 import github from "./github.png";
 import menu from "./menu.svg";
-import close from "./close.svg";
+import mobile from "./mobile.png";
+import logo from "./only_s.png";
+import web from "./web.png";
 
 import css from "./tech/css.png";
 import docker from "./tech/docker.png";
@@ -18,8 +18,8 @@ import nodejs from "./tech/nodejs.png";
 import reactjs from "./tech/reactjs.png";
 import redux from "./tech/redux.png";
 import tailwind from "./tech/tailwind.png";
-import typescript from "./tech/typescript.png";
 import threejs from "./tech/threejs.svg";
+import typescript from "./tech/typescript.png";
 
 import meta from "./company/meta.png";
 import shopify from "./company/shopify.png";
@@ -31,44 +31,45 @@ import jobit from "./jobit.png";
 import tripguide from "./tripguide.png";
 
 // project image
-import blogify from './blogify.png'
-import tasker from './tasker.png'
-import Readers_Realm from './readers_realm.png'
-
+import blogify from "./blogify.png";
+import lws_cart from "./lws_cart.png";
+import Readers_Realm from "./readers_realm.png";
+import tasker from "./tasker.png";
 
 // live site logo
-import liveSite from './download.jpg'
+import liveSite from "./download.jpg";
 export {
-  logo,
+  Readers_Realm,
   backend,
-  creator,
-  mobile,
-  web,
-  github,
-  menu,
+  blogify,
+  carrent,
   close,
+  creator,
   css,
   docker,
   figma,
   git,
+  github,
   html,
   javascript,
+  jobit,
+  liveSite,
+  logo,
+  lws_cart,
+  menu,
+  meta,
+  mobile,
   mongodb,
   nodejs,
   reactjs,
   redux,
-  tailwind,
-  typescript,
-  threejs,
-  meta,
   shopify,
   starbucks,
-  tesla,
-  carrent,
-  jobit,
-  tripguide,
-  blogify,
-  Readers_Realm,
+  tailwind,
   tasker,
-  liveSite
+  tesla,
+  threejs,
+  tripguide,
+  typescript,
+  web,
 };

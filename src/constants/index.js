@@ -1,12 +1,14 @@
 import {
+  Readers_Realm,
   backend,
+  blogify,
   creator,
   css,
   figma,
   git,
   html,
   javascript,
-  jobit,
+  lws_cart,
   meta,
   mobile,
   mongodb,
@@ -16,13 +18,11 @@ import {
   shopify,
   starbucks,
   tailwind,
+  tasker,
   tesla,
   threejs,
-  tripguide,
   typescript,
   web,
-  blogify,
-  tasker,Readers_Realm
 } from "../assets";
 
 export const navLinks = [
@@ -198,6 +198,28 @@ const testimonials = [
 
 const projects = [
   {
+    name: "Lws Cart",
+    description:
+      "This is a comprehensive e-commerce platform developed using Next.js, React, and Tailwind CSS. The platform includes user authentication, product listings, a detailed product view, and shopping cart functionality,It is designed to be responsive, SEO-friendly, and includes internationalization for both Bengali and English.",
+    tags: [
+      {
+        name: "Next js",
+        color: "blue-text-gradient",
+      },
+      {
+        name: "Custom hook",
+        color: "green-text-gradient",
+      },
+      {
+        name: "tailwind",
+        color: "pink-text-gradient",
+      },
+    ],
+    image: lws_cart,
+    source_code_link: "https://github.com/Swapno963/lwskart",
+    live_site_link: "https://lwskart-nine.vercel.app/en",
+  },
+  {
     name: "BlogiFy",
     description:
       "Implemented an Enhanced Authentication and Profile Editing system using JWT token-based authentication, enabling users to securely edit their profiles. Developed Dynamic Blog Loading functionality with infinite scroll feature, facilitating seamless loading of blogs. ",
@@ -241,8 +263,9 @@ const projects = [
     source_code_link: "https://github.com/Swapno963/Readers_Realm",
     live_site_link: "https://readers-realm.onrender.com/",
   },
+
   {
-    name: "Effortless Plan ",
+    name: "Effortless Plan",
     description:
       "On the homepage, users can view features and reviews. They can create tasks displayed in a table format. Additionally, an authentication system has been implemented.",
     tags: [
