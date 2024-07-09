@@ -2,14 +2,12 @@
 
 Welcome to my personal portfolio project! This repository houses the code for my portfolio website, showcasing my skills, projects, and experiences.
 
-
 ## Development
 
 During development, you can use the following npm scripts:
 
 - **Start Development Server:** Run `npm run dev` to start the development server using Vite.
 - **Build Production Code:** Use `npm run build` to build production-ready code using Vite.
-
 
 ## Technologies Used
 
@@ -20,8 +18,6 @@ During development, you can use the following npm scripts:
 - **React Vertical Timeline Component:** Displaying experiences in a vertical timeline format.
 - **EmailJS:** Integrating email functionality into the portfolio.
 
-
-
 ## Installation
 
 To get started with this project, follow these steps:
@@ -29,4 +25,5 @@ To get started with this project, follow these steps:
 1. **Clone the Repository:** Clone this repository to your local machine using the following command:
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Swapno963/Personal_Portfolio_3D.git
+   ```
