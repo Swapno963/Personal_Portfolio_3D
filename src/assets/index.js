@@ -31,14 +31,16 @@ import jobit from "./jobit.png";
 import tripguide from "./tripguide.png";
 
 // project image
-import blogify from "./blogify.png";
-import lws_cart from "./lws_cart.png";
+import AnalyzeHub from "./AnalyzeHub.png";
+import blogify from "./blogify_new.png";
+import global_goods from "./Global_goods.png";
 import Readers_Realm from "./readers_realm.png";
 import tasker from "./tasker.png";
 
 // live site logo
 import liveSite from "./download.jpg";
 export {
+  AnalyzeHub,
   Readers_Realm,
   backend,
   blogify,
@@ -50,12 +52,12 @@ export {
   figma,
   git,
   github,
+  global_goods,
   html,
   javascript,
   jobit,
   liveSite,
   logo,
-  lws_cart,
   menu,
   meta,
   mobile,

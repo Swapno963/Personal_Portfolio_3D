@@ -1,4 +1,5 @@
 import {
+  AnalyzeHub,
   Readers_Realm,
   backend,
   blogify,
@@ -6,9 +7,9 @@ import {
   css,
   figma,
   git,
+  global_goods,
   html,
   javascript,
-  lws_cart,
   meta,
   mobile,
   mongodb,
@@ -31,8 +32,8 @@ export const navLinks = [
     title: "About",
   },
   {
-    id: "work",
-    title: "Work",
+    id: "projects",
+    title: "Projects",
   },
   {
     id: "contact",
@@ -172,23 +173,23 @@ const experiences = [
 const testimonials = [
   {
     testimonial:
-      "I thought it was impossible to make a website as beautiful as our product, but Rick proved me wrong.",
-    name: "Sara Lee",
+      "I thought it was impossible to make a website as within that short period of time, but  he made it possible.",
+    name: "Rakib Khan",
     designation: "CFO",
     company: "Acme Co",
     image: "https://randomuser.me/api/portraits/women/4.jpg",
   },
   {
     testimonial:
-      "I've never met a web developer who truly cares about their clients' success like Rick does.",
-    name: "Chris Brown",
+      "I've never met a web developer who truly cares about their clients' success like Swapno does.",
+    name: "Sujos Nag",
     designation: "COO",
     company: "DEF Corp",
     image: "https://randomuser.me/api/portraits/men/5.jpg",
   },
   {
     testimonial:
-      "After Rick optimized our website, our traffic increased by 50%. We can't thank them enough!",
+      "After Swapno optimized our website, our user experience increased by 50%. We can't thank them enough!",
     name: "Lisa Wang",
     designation: "CTO",
     company: "456 Enterprises",
@@ -198,9 +199,15 @@ const testimonials = [
 
 const projects = [
   {
-    name: "Lws Cart",
+    name: "Global Goods",
     description:
-      "This is a comprehensive e-commerce platform developed using Next.js, React, and Tailwind CSS. The platform includes user authentication, product listings, a detailed product view, and shopping cart functionality,It is designed to be responsive, SEO-friendly, and includes internationalization for both Bengali and English.",
+      "This is a SEO-friendly e-commerce platform supports 2 languages",
+    features: [
+      { id: 1, text: "Jwt based authientication" },
+      { id: 2, text: "Show new arrival and related products" },
+      { id: 3, text: "Automatic pdf download wile checkout" },
+    ],
+
     tags: [
       {
         name: "Next js",
@@ -215,14 +222,20 @@ const projects = [
         color: "pink-text-gradient",
       },
     ],
-    image: lws_cart,
-    source_code_link: "https://github.com/Swapno963/lwskart",
+    image: global_goods,
+    frontend_code_link: "https://github.com/Swapno963/lwskart",
+    backend_code_link: null,
     live_site_link: "https://lwskart-nine.vercel.app/en",
   },
   {
     name: "BlogiFy",
     description:
-      "Implemented an Enhanced Authentication and Profile Editing system using JWT token-based authentication, enabling users to securely edit their profiles. Developed Dynamic Blog Loading functionality with infinite scroll feature, facilitating seamless loading of blogs. ",
+      "Developed Dynamic Blog Loading functionality with infinite scroll feature, facilitating seamless loading of blogs. ",
+    features: [
+      { id: 1, text: "Custom hook for authientication" },
+      { id: 2, text: "Debouncing for searching products" },
+      { id: 3, text: "Ligng and Dark mode supported" },
+    ],
     tags: [
       {
         name: "react",
@@ -238,13 +251,53 @@ const projects = [
       },
     ],
     image: blogify,
-    source_code_link: "https://github.com/Swapno963/BlogiFy_Backend",
+    frontend_code_link: "https://github.com/Swapno963/Blogify_Frontend",
+    backend_code_link: "https://github.com/Swapno963/BlogiFy_Backend",
     live_site_link: "https://blogify-teal-three.vercel.app/",
+  },
+  {
+    name: "AnalyzeHub",
+    description:
+      "This is the frontend of the Dashboard App, built with React and utilizing D3.js for data visualization.",
+    features: [
+      { id: 1, text: "Interactive data visualizations with D3.js" },
+      {
+        id: 2,
+        text: "Dynamic dashboards with bar charts, pie charts, line charts, box plots, and tables",
+      },
+      { id: 3, text: "API integration for data analysis" },
+    ],
+    tags: [
+      {
+        name: "react",
+        color: "blue-text-gradient",
+      },
+      {
+        name: "Django(DRF)",
+        color: "green-text-gradient",
+      },
+      {
+        name: "D3",
+        color: "pink-text-gradient",
+      },
+    ],
+    image: AnalyzeHub,
+    frontend_code_link: "https://github.com/Swapno963/AnalyzeHub-Frontend",
+    backend_code_link: "https://github.com/Swapno963/AnalyzeHub-Backend",
+    live_site_link: "https://analyze-hub-frontend.vercel.app/",
   },
   {
     name: "Reader Realm",
     description:
-      "Implementing a timeout mechanism for user sessions, automatically logging users out after 5 minutes of inactivity and limiting sessions to 30 minutes. Users can borrow books, leave reviews, and return them, with a profile feature enabling monitoring of borrowing activity and managing loan return dates.",
+      "A library management app, where user can borrow, return books.",
+    features: [
+      { id: 1, text: "Implementing a timeout mechanism for user sessions" },
+      { id: 2, text: "Users can borrow books, leave reviews" },
+      {
+        id: 3,
+        text: "monitoring of borrowing activity and managing loan return dates.",
+      },
+    ],
     tags: [
       {
         name: "Django(MVT)",
@@ -259,15 +312,21 @@ const projects = [
         color: "pink-text-gradient",
       },
     ],
-    image: tasker,
-    source_code_link: "https://github.com/Swapno963/Readers_Realm",
+    image: Readers_Realm,
+    frontend_code_link: null,
+    backend_code_link: "https://github.com/Swapno963/Readers_Realm",
     live_site_link: "https://readers-realm.onrender.com/",
   },
-
   {
     name: "Effortless Plan",
     description:
       "On the homepage, users can view features and reviews. They can create tasks displayed in a table format. Additionally, an authentication system has been implemented.",
+    features: [
+      { id: 1, text: "authentication system has been implemented" },
+      { id: 2, text: "Add,delete tasks " },
+      { id: 3, text: "User can view tasks displayed in a table format." },
+    ],
+
     tags: [
       {
         name: "Django",
@@ -282,8 +341,9 @@ const projects = [
         color: "pink-text-gradient",
       },
     ],
-    image: Readers_Realm,
-    source_code_link: "https://github.com/Swapno963/EffortlessPlan",
+    image: tasker,
+    frontend_code_link: null,
+    backend_code_link: "https://github.com/Swapno963/EffortlessPlan",
     live_site_link: "https://effortless-plan.onrender.com/",
   },
 ];

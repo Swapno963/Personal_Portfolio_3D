@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { motion } from "framer-motion";
 import { Tilt } from "react-tilt";
 
@@ -11,9 +12,11 @@ const ProjectCard = ({
   index,
   name,
   description,
+  features,
   tags,
   image,
-  source_code_link,
+  frontend_code_link,
+  backend_code_link,
   live_site_link,
 }) => {
   return (
@@ -24,7 +27,7 @@ const ProjectCard = ({
           scale: 1,
           speed: 850,
         }}
-        className="bg-tertiary p-5 rounded-2xl sm:w-[360px] w-full"
+        className="bg-tertiary p-5 rounded-2xl h-[630px] sm:w-[360px] w-full"
       >
         <div className="relative w-full h-[230px]">
           <img
@@ -36,29 +39,46 @@ const ProjectCard = ({
           <div className="absolute inset-0 flex justify-end m-3 card-img_hover">
             <div className=" w-10 h-10 rounded-full flex-col justify-center items-center cursor-pointer">
               {/* <a href={source_code_link}> */}
-
               <img
                 onClick={() => window.open(live_site_link, "_blank")}
                 src={liveSite}
                 alt="source code"
                 className="w-full h-full object-contain"
               />
-
-              <img
-                onClick={() => window.open(source_code_link, "_blank")}
-                src={github}
-                alt="source code"
-                className=" w-full h-full mr-4 object-contain"
-              />
+              {frontend_code_link && (
+                <img
+                  onClick={() => window.open(frontend_code_link, "_blank")}
+                  src={github}
+                  alt="source code"
+                  className=" w-full h-full mr-4 object-contain"
+                />
+              )}
+              {backend_code_link && (
+                <img
+                  onClick={() => window.open(backend_code_link, "_blank")}
+                  src={github}
+                  alt="source code"
+                  className=" w-full h-full mr-4 object-contain"
+                />
+              )}
             </div>
           </div>
         </div>
 
         <div className="mt-5">
           <h3 className="text-white font-bold text-[24px]">{name}</h3>
-          <p className="mt-2 text-secondary text-[14px]">{description}</p>
+          <p className="mt-2 text-gray-200 text-[14px] pb-3">{description}</p>
         </div>
 
+        <div>
+          <ol className="list-decimal list-inside space-y-2">
+            {features?.map((feature) => (
+              <li key={feature?.id} className="py-1 px-4 rounded-lg shadow-md">
+                {feature?.text}
+              </li>
+            ))}
+          </ol>
+        </div>
         <div className="mt-4 flex flex-wrap gap-2">
           {tags.map((tag) => (
             <p
@@ -104,4 +124,4 @@ const Works = () => {
   );
 };
 
-export default SectionWrapper(Works, "");
+export default SectionWrapper(Works, "projects");
