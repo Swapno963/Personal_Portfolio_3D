@@ -223,7 +223,7 @@ const projects = [
       },
     ],
     image: global_goods,
-    frontend_code_link: "https://github.com/Swapno963/lwskart",
+    frontend_code_link: "https://github.com/Swapno963/Global_Goods",
     backend_code_link: null,
     live_site_link: "https://lwskart-nine.vercel.app/en",
   },
