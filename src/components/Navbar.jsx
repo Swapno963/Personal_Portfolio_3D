@@ -45,7 +45,7 @@ export default function Navbar() {
           <img src={logo} alt="logo" className="w-12 h-12 object-contain " />
           <p className="text-white text-[18px] font-bold cursor-pointer flex ">
             Swapno &nbsp;
-            <span className="sm:block hidden"> | Next Js, Django</span>
+            <span className="sm:block hidden"> | Django, Next Js</span>
           </p>
         </Link>
 
