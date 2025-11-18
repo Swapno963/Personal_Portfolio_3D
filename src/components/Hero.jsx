@@ -19,8 +19,7 @@ const Hero = () => {
             Hi, I'm <span className='text-[#915EFF]'>Swapno</span>
           </h1>
           <p className={`${styles.heroSubText} mt-2 text-white-100`}>
-            I develop 3D visuals, Django DRF <br className='sm:block hidden' />
-            Next js and web applications
+            Backend Software Engineer with deep Django/FastAPI expertise <br className='sm:block hidden' /> and familiar with frontend Technologies(React js, Next js).
           </p>
         </div>
       </div>

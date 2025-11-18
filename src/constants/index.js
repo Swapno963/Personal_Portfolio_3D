@@ -24,6 +24,10 @@ import {
   threejs,
   typescript,
   web,
+  django,
+  fast_api,
+  next_js,
+  react_js,
 } from "../assets";
 
 export const navLinks = [
@@ -43,20 +47,20 @@ export const navLinks = [
 
 const services = [
   {
-    title: "Web Developer",
-    icon: web,
+    title: "Django",
+    icon: django,
+  },
+  {
+    title: "FastAPI",
+    icon: fast_api,
   },
   {
     title: "Next js",
-    icon: mobile,
+    icon: next_js,
   },
   {
     title: "React js",
-    icon: backend,
-  },
-  {
-    title: "Django",
-    icon: creator,
+    icon: react_js,
   },
 ];
 

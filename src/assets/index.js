@@ -30,6 +30,12 @@ import carrent from "./carrent.png";
 import jobit from "./jobit.png";
 import tripguide from "./tripguide.png";
 
+// About
+import django from "./django_icon.png";
+import fast_api from "./fast_api.png";
+import next_js from "./next_js.jpg";
+import react_js from "./react_js.png";
+
 // project image
 import AnalyzeHub from "./AnalyzeHub.png";
 import blogify from "./blogify_new.png";
@@ -74,4 +80,8 @@ export {
   tripguide,
   typescript,
   web,
+  django,
+  fast_api,
+  next_js,
+  react_js,
 };
