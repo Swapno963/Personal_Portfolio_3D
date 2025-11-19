@@ -7,6 +7,7 @@ import { projects } from "../constants";
 import { SectionWrapper } from "../hoc";
 import { styles } from "../styles";
 import { fadeIn, textVariant } from "../utils/motion";
+import { useLocation } from "react-router-dom";
 
 const ProjectCard = ({
   index,
@@ -95,6 +96,10 @@ const ProjectCard = ({
 };
 
 const Works = () => {
+          const { search } = useLocation();
+        const query = new URLSearchParams(search);
+        const mode = query.get("mode") || "full_stack"; 
+        
   return (
     <>
       <motion.div variants={textVariant()}>
@@ -116,7 +121,7 @@ const Works = () => {
       </div>
 
       <div className="mt-20 flex flex-wrap gap-7">
-        {projects.map((project, index) => (
+        {mode && projects[mode].map((project, index) => (
           <ProjectCard key={`project-${index}`} index={index} {...project} />
         ))}
       </div>

@@ -5,20 +5,21 @@ import { SectionWrapper } from "../hoc";
 import { technologies } from "../constants";
 import { useLocation } from "react-router-dom";
 
-const Tech = () => {
+const Experience = () => {
             const { search } = useLocation();
         const query = new URLSearchParams(search);
         const mode = query.get("mode") || "full_stack"; 
         
   return (
     <div className='flex flex-row flex-wrap justify-center gap-10'>
-      {mode && technologies[mode].map((technology) => (
+        <p>Experience</p>
+      {/* {mode && technologies[mode].map((technology) => (
         <div className='w-28 h-28' key={technology.name}  >
           <BallCanvas icon={technology.icon} name={technology.name}/>
         </div>
-      ))}
+      ))} */}
     </div>
   );
 };
 
-export default SectionWrapper(Tech, "");
+export default SectionWrapper(Experience, "");

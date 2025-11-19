@@ -4,8 +4,14 @@ import { Link } from "react-router-dom";
 import { close, logo, menu } from "../assets";
 import { navLinks } from "../constants";
 import { styles } from "../styles";
+import { common_text } from "../constants";
+import { useLocation } from "react-router-dom";
 
 export default function Navbar() {
+        const { search } = useLocation();
+        const query = new URLSearchParams(search);
+        const mode = query.get("mode") || "full_stack"; 
+        
   const [active, setActive] = useState("");
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -45,7 +51,7 @@ export default function Navbar() {
           <img src={logo} alt="logo" className="w-12 h-12 object-contain " />
           <p className="text-white text-[18px] font-bold cursor-pointer flex ">
             Swapno &nbsp;
-            <span className="sm:block hidden"> | Django, Next Js</span>
+            <span className="sm:block hidden"> | {mode && common_text[mode]?.nav_title}</span>
           </p>
         </Link>
 

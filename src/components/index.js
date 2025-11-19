@@ -13,5 +13,6 @@ import Tech from "./Tech";
 import Works from "./Works";
 import Feedbacks from "./Feedbacks";
 import Contact from "./Contact";
+import Experience from "./Experience";
 
-export { Navbar, Hero, About, Tech, Works, Feedbacks, Contact, StarsCanvas };
+export { Navbar, Hero, About,Experience, Tech, Works, Feedbacks, Contact, StarsCanvas };

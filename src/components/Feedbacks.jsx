@@ -4,6 +4,7 @@ import { styles } from "../styles";
 import { SectionWrapper } from "../hoc";
 import { fadeIn, textVariant } from "../utils/motion";
 import { testimonials } from "../constants";
+import { useLocation } from "react-router-dom";
 
 const FeedbackCard = ({
   index,
@@ -43,6 +44,10 @@ const FeedbackCard = ({
 );
 
 const Feedbacks = () => {
+            const { search } = useLocation();
+        const query = new URLSearchParams(search);
+        const mode = query.get("mode") || "full_stack"; 
+        
   return (
     <div className={`mt-12 bg-black-100 rounded-[20px]`}>
       <div
@@ -54,7 +59,7 @@ const Feedbacks = () => {
         </motion.div>
       </div>
       <div className={`-mt-20 pb-14 ${styles.paddingX} flex flex-wrap gap-7`}>
-        {testimonials.map((testimonial, index) => (
+        {mode && testimonials[mode].map((testimonial, index) => (
           <FeedbackCard key={testimonial.name} index={index} {...testimonial} />
         ))}
       </div>

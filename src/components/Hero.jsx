@@ -2,8 +2,14 @@ import { motion } from "framer-motion";
 
 import { styles } from "../styles";
 import { ComputersCanvas } from "./canvas";
+import { common_text } from "../constants";
+import { useLocation } from "react-router-dom";
 
 const Hero = () => {
+          const { search } = useLocation();
+        const query = new URLSearchParams(search);
+        const mode = query.get("mode") || "full_stack"; 
+        
   return (
     <section className={`relative w-full h-screen mx-auto`}>
       <div
@@ -19,7 +25,7 @@ const Hero = () => {
             Hi, I'm <span className='text-[#915EFF]'>Swapno</span>
           </h1>
           <p className={`${styles.heroSubText} mt-3 mb-2 text-white-100`}>
-            Backend Software Engineer with deep Django/FastAPI <br className='sm:block hidden' /> and familiar with frontend Technologies(React js, Next js).
+            {mode && common_text[mode]?.hero_description_1} <br className='sm:block hidden' /> {mode && common_text[mode]?.hero_description_2}
           </p>
         </div>
       </div>

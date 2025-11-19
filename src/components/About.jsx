@@ -6,6 +6,8 @@ import { styles } from "../styles";
 import { services } from "../constants";
 import { SectionWrapper } from "../hoc";
 import { fadeIn, textVariant } from "../utils/motion";
+import { useLocation } from "react-router-dom";
+import { common_text } from "../constants";
 
 const ServiceCard = ({ index, title, icon }) => (
   <Tilt className='xs:w-[244px] w-full'>
@@ -36,6 +38,10 @@ const ServiceCard = ({ index, title, icon }) => (
 );
 
 const About = () => {
+      const { search } = useLocation();
+      const query = new URLSearchParams(search);
+      const mode = query.get("mode") || "full_stack"; 
+      
   return (
     <>
       <motion.div variants={textVariant()}>
@@ -47,16 +53,13 @@ const About = () => {
         variants={fadeIn("", "", 0.1, 1)}
         className='mt-4 text-secondary text-[17px] max-w-3xl leading-[30px]'
       >
-        I'm a skilled software developer with experience in Python and
-        JavaScript, and expertise in frameworks like Django, FastAPI, React,Next js and
-        Three.js.
-         I'm a quick learner and collaborate closely with clients to
-        create efficient, scalable, and user-friendly solutions that solve
-        real-world problems. Let's work together to bring your ideas to life!
+         {mode && common_text[mode]?.about_1} 
+         <br />
+         {mode && common_text[mode]?.about_2} 
       </motion.p>
 
       <div className='mt-20 flex flex-wrap gap-10'>
-        {services.map((service, index) => (
+        {mode && services[mode]?.map((service, index) => (
           <ServiceCard key={service.title} index={index} {...service} />
         ))}
       </div>

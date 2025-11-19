@@ -15,7 +15,6 @@ import CanvasLoader from "../Loader";
 const Ball = (props) => {
   const [decal] = useTexture([props.imgUrl]);
   const [hovered, setHovered] = useState(false);
-  console.log(props);
   
   return (
     // <Float speed={1.75} rotationIntensity={1} floatIntensity={2}>

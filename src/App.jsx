@@ -9,10 +9,12 @@ import {
   StarsCanvas,
   Tech,
   Works,
+  Experience
 } from "./components";
 import Footer from "./components/Footer";
 
 const App = () => {
+
   return (
     <BrowserRouter>
       <div className="relative z-0 bg-primary">
@@ -21,7 +23,7 @@ const App = () => {
           <Hero />
         </div>
         <About />
-        {/* <Experience /> */}
+        <Experience />
         <Tech />
         <Works />
         <Feedbacks />

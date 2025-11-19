@@ -1,26 +1,38 @@
+import { useLocation } from "react-router-dom";
+import { common_text } from "../constants";
+
 export default function Footer() {
+          const { search } = useLocation();
+        const query = new URLSearchParams(search);
+        const mode = query.get("mode") || "full_stack"; 
+        
   return (
     <section className=" px-20  opacity-80 bg-gray-800">
       <div className="grid grid-cols-4 gap-4 text-start px-6">
         <div className="pt-12 pb-10">
           <h2 className="text-4xl font-bold ">Swapno Mondol</h2>
           <p className="text-xl pt-4  text-gray-100">
-            I have expertise in frontend development using React.js and Next.js.
-            For backend development, I have strong knowledge of Django,
-            including both MVT and DRF, and
+      {mode && common_text[mode]?.footer_description}
           </p>
         </div>
         <div className="pt-12 pb-10 mx-auto">
           <h2 className="text-3xl font-bold">Projects</h2>
-          <p className="text-md pt-3 font-semibold text-xl">
+          {
+            mode && common_text[mode]?.footer_project.map((project)=>(
+        <p                   key={project.project_name}
+ className="text-md pt-3 font-semibold text-xl">
             <a
               target="_blank"
               className="text-blue-500 "
-              href="https://lwskart-nine.vercel.app/en"
+              href={project.project_link}
+
             >
-              Blogify (React js + Django)
+              {project.project_name}
             </a>
           </p>
+            ))
+          }
+  
           <p className="text-md pt-3 font-semibold text-xl">
             <a
               target="_blank"
