@@ -8,7 +8,7 @@ import { useLocation } from "react-router-dom";
 const Hero = () => {
           const { search } = useLocation();
         const query = new URLSearchParams(search);
-        const mode = query.get("mode") || "full_stack"; 
+        const mode =query.get("mode") || "backend";  
         
   return (
     <section className={`relative w-full h-screen mx-auto`}>

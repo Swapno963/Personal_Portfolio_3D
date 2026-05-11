@@ -98,7 +98,7 @@ const ProjectCard = ({
 const Works = () => {
           const { search } = useLocation();
         const query = new URLSearchParams(search);
-        const mode = query.get("mode") || "full_stack"; 
+        const mode =query.get("mode") || "backend";  
         
   return (
     <>

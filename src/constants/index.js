@@ -28,29 +28,29 @@ import {
   fast_api,
   next_js,
   react_js,
+  docker
 } from "../assets";
 
 
 export const common_text = {
   "full_stack":{
-    "nav_title":"Next Js,  Django ",
+    "nav_title":",  Django ",
     "hero_description_1":"Backend Software Engineer with deep Django/FastAPI",
-    "hero_description_2":"and familiar with frontend Technologies(React js, Next js",
+    "hero_description_2":"and familiar with Deployment Technologies(Docker, kubernetes and Terraform)",
     "about_1":` I'm a skilled software developer with experience in Python and
-        JavaScript, and expertise in frameworks like Django, FastAPI, React,Next js and
-        Three.js.`,
+        Go, and expertise in frameworks like Django, FastAPI and React`,
     "about_2":` I'm a quick learner and collaborate closely with clients to
         create efficient, scalable, and user-friendly solutions that solve
         real-world problems. Let's work together to bring your ideas to life!`,
     
-    "footer_description":"Expertise in frontend development using React.js and Next.js. For backend development, I have strong knowledge of Django and FastAPI.",
+    "footer_description":"Strong debugging and analytical skills with a proven ability to meet challenging deadlines.",
     "footer_project":[
       {
         "project_name":"Blogify (React js + Django)",
         "project_link":"https://lwskart-nine.vercel.app/en"
       },      
       {
-        "project_name":"Global Goods (Next js + Tailwind css)",
+        "project_name":"Global Goods ( + Tailwind css)",
         "project_link":"https://blogify-teal-three.vercel.app/"
       },      
       {
@@ -60,9 +60,9 @@ export const common_text = {
     ]
   },
     "backend":{
-    "nav_title":"Django, Next Js ",
+    "nav_title":"Django ",
     "hero_description_1":"Backend Software Engineer with deep Django/FastAPI",
-    "hero_description_2":"and familiar with frontend Technologies(React js, Next js",
+    "hero_description_2":"and familiar with Deployment Technologies(Docker, kubernetes and Terraform)",
     "about_1":` I'm a skilled software developer with experience in 
         Python, and expertise in frameworks like Django, FastAPI, React.`,
 
@@ -70,14 +70,14 @@ export const common_text = {
         create efficient, scalable, and user-friendly solutions that solve
         real-world problems. Let's work together to bring your ideas to life!`,
     
-    "footer_description":"Expertise in frontend development using React.js and Next.js. For backend development, I have strong knowledge of Django and FastAPI.",
+    "footer_description":"Strong debugging and analytical skills with a proven ability to meet challenging deadlines.",
     "footer_project":[
       {
         "project_name":"Blogify (React js + Django)",
         "project_link":"https://lwskart-nine.vercel.app/en"
       },      
       {
-        "project_name":"Global Goods (Next js + Tailwind css)",
+        "project_name":"Global Goods ( + Tailwind css)",
         "project_link":"https://blogify-teal-three.vercel.app/"
       },      
       {
@@ -105,7 +105,7 @@ export const navLinks = [
 const services = {
   "full_stack":[
     {
-    title: "Next js",
+    title: "",
     icon: next_js,
   },
   {
@@ -131,7 +131,7 @@ const services = {
     icon: fast_api,
   },
   {
-    title: "Next js",
+    title: "",
     icon: next_js,
   },
   {
@@ -143,14 +143,14 @@ const services = {
 
 const technologies = {
    "full_stack":[
-  {
-    name: "HTML 5",
-    icon: html,
-  },
-  {
-    name: "CSS 3",
-    icon: css,
-  },
+  // {
+  //   name: "HTML 5",
+  //   icon: html,
+  // },
+  // {
+  //   name: "CSS 3",
+  //   icon: css,
+  // },
   {
     name: "JavaScript",
     icon: javascript,
@@ -187,14 +187,14 @@ const technologies = {
     name: "git",
     icon: git,
   },
-  {
-    name: "figma",
-    icon: figma,
-  },
   // {
-  //   name: "docker",
-  //   icon: docker,
+  //   name: "figma",
+  //   icon: figma,
   // },
+  {
+    name: "docker",
+    icon: docker,
+  },
 ],
 "backend":[
 
@@ -374,7 +374,7 @@ const projects = {
 
     tags: [
       {
-        name: "Next js",
+        name: "",
         color: "blue-text-gradient",
       },
       {
@@ -524,7 +524,7 @@ const projects = {
 
     tags: [
       {
-        name: "Next js",
+        name: "",
         color: "blue-text-gradient",
       },
       {

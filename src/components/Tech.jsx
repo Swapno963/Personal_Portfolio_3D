@@ -8,7 +8,7 @@ import { useLocation } from "react-router-dom";
 const Tech = () => {
             const { search } = useLocation();
         const query = new URLSearchParams(search);
-        const mode = query.get("mode") || "full_stack"; 
+        const mode =query.get("mode") || "backend";  
         
   return (
     <div className='flex flex-row flex-wrap justify-center gap-10'>

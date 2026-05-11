@@ -46,7 +46,7 @@ const FeedbackCard = ({
 const Feedbacks = () => {
             const { search } = useLocation();
         const query = new URLSearchParams(search);
-        const mode = query.get("mode") || "full_stack"; 
+        const mode =query.get("mode") || "backend";  
         
   return (
     <div className={`mt-12 bg-black-100 rounded-[20px]`}>

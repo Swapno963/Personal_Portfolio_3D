@@ -4,7 +4,7 @@ import { common_text } from "../constants";
 export default function Footer() {
           const { search } = useLocation();
         const query = new URLSearchParams(search);
-        const mode = query.get("mode") || "full_stack"; 
+        const mode =query.get("mode") || "backend";  
         
   return (
     <section className=" px-20  opacity-80 bg-gray-800">

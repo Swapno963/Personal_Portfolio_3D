@@ -10,7 +10,7 @@ import { useLocation } from "react-router-dom";
 export default function Navbar() {
         const { search } = useLocation();
         const query = new URLSearchParams(search);
-        const mode = query.get("mode") || "full_stack"; 
+        const mode = query.get("mode") || "backend"; 
         
   const [active, setActive] = useState("");
   const [toggle, setToggle] = useState(false);
