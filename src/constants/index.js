@@ -201,20 +201,23 @@ const technologies = {
 
   {
     name: "Django",
-    icon: javascript,
+    icon: django,
   },
   {
     name: "FastAPI",
-    icon: typescript,
+    icon: fast_api,
+  },  {
+    name: "Go",
+    icon: go,
   },
   {
     name: "React JS",
-    icon: typescript,
+    icon: react_js,
   },
-  {
-    name: "Flask",
-    icon: redux,
-  },
+  // {
+  //   name: "Flask",
+  //   icon: redux,
+  // },
   {
     name: "Tailwind CSS",
     icon: tailwind,
@@ -227,22 +230,22 @@ const technologies = {
     name: "MongoDB",
     icon: mongodb,
   },
-  {
-    name: "Three JS",
-    icon: threejs,
-  },
+  // {
+  //   name: "Three JS",
+  //   icon: threejs,
+  // },
   {
     name: "git",
     icon: git,
   },
-  {
-    name: "figma",
-    icon: figma,
-  },
   // {
-  //   name: "docker",
-  //   icon: docker,
+  //   name: "figma",
+  //   icon: figma,
   // },
+  {
+    name: "docker",
+    icon: docker,
+  },
 ]
 }
 
