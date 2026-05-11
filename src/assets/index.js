@@ -20,6 +20,7 @@ import redux from "./tech/redux.png";
 import tailwind from "./tech/tailwind.png";
 import threejs from "./tech/threejs.svg";
 import typescript from "./tech/typescript.png";
+import go from "./tech/go.png";
 
 import meta from "./company/meta.png";
 import shopify from "./company/shopify.png";
@@ -35,6 +36,7 @@ import django from "./django_icon.png";
 import fast_api from "./fast_api.png";
 import next_js from "./next_js.jpg";
 import react_js from "./react_js.png";
+
 
 // project image
 import AnalyzeHub from "./AnalyzeHub.png";
@@ -84,4 +86,5 @@ export {
   fast_api,
   next_js,
   react_js,
+  go
 };

@@ -28,7 +28,8 @@ import {
   fast_api,
   next_js,
   react_js,
-  docker
+  docker,
+  go
 } from "../assets";
 
 
@@ -131,8 +132,8 @@ const services = {
     icon: fast_api,
   },
   {
-    title: "",
-    icon: next_js,
+    title: "Go",
+    icon: go,
   },
   {
     title: "React js",
