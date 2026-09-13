@@ -1,90 +1,39 @@
+import logo from "./logo.svg";
 import backend from "./backend.png";
-import close from "./close.svg";
 import creator from "./creator.png";
+import mobile from "./mobile.png";
+import web from "./web.png";
 import github from "./github.png";
 import menu from "./menu.svg";
-import mobile from "./mobile.png";
-import logo from "./only_s.png";
-import web from "./web.png";
+import close from "./close.svg";
 
-import css from "./tech/css.png";
-import docker from "./tech/docker.png";
-import figma from "./tech/figma.png";
-import git from "./tech/git.png";
-import html from "./tech/html.png";
-import javascript from "./tech/javascript.png";
-import mongodb from "./tech/mongodb.png";
-import nodejs from "./tech/nodejs.png";
-import reactjs from "./tech/reactjs.png";
-import redux from "./tech/redux.png";
-import tailwind from "./tech/tailwind.png";
-import threejs from "./tech/threejs.svg";
-import typescript from "./tech/typescript.png";
-import go from "./tech/go.png";
+import meraki from "./company/meraki.svg";
+import cooking from "./company/cooking.svg";
 
-import meta from "./company/meta.png";
-import shopify from "./company/shopify.png";
-import starbucks from "./company/starbucks.png";
-import tesla from "./company/tesla.png";
+import educationArch from "./projects/education-arch.svg";
+import querymindFlow from "./projects/querymind-flow.svg";
+import shopverseArch from "./projects/shopverse-arch.svg";
+import restaurantFlow from "./projects/restaurant-flow.svg";
+import shopverseDocker from "./projects/shopverse-docker.png";
+import shopverseInventory from "./projects/shopverse-inventory.png";
+import shopverseUserApi from "./projects/shopverse-user-api.png";
 
-import carrent from "./carrent.png";
-import jobit from "./jobit.png";
-import tripguide from "./tripguide.png";
-
-// About
-import django from "./django_icon.png";
-import fast_api from "./fast_api.png";
-import next_js from "./next_js.jpg";
-import react_js from "./react_js.png";
-
-
-// project image
-import AnalyzeHub from "./AnalyzeHub.png";
-import blogify from "./blogify_new.png";
-import global_goods from "./Global_goods.png";
-import Readers_Realm from "./readers_realm.png";
-import tasker from "./tasker.png";
-
-// live site logo
-import liveSite from "./download.jpg";
 export {
-  AnalyzeHub,
-  Readers_Realm,
-  backend,
-  blogify,
-  carrent,
-  close,
-  creator,
-  css,
-  docker,
-  figma,
-  git,
-  github,
-  global_goods,
-  html,
-  javascript,
-  jobit,
-  liveSite,
   logo,
-  menu,
-  meta,
+  backend,
+  creator,
   mobile,
-  mongodb,
-  nodejs,
-  reactjs,
-  redux,
-  shopify,
-  starbucks,
-  tailwind,
-  tasker,
-  tesla,
-  threejs,
-  tripguide,
-  typescript,
   web,
-  django,
-  fast_api,
-  next_js,
-  react_js,
-  go
+  github,
+  menu,
+  close,
+  meraki,
+  cooking,
+  educationArch,
+  querymindFlow,
+  shopverseArch,
+  restaurantFlow,
+  shopverseDocker,
+  shopverseInventory,
+  shopverseUserApi,
 };

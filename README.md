@@ -1,19 +1,40 @@
-# My Portfolio
+# Swapno Mondol — Backend portfolio
 
-Welcome to my personal portfolio project! This repository houses the code for my portfolio website, showcasing my skills, projects, and experiences.
+Personal site for [Swapno Mondol](https://github.com/Swapno963): backend engineer focused on APIs, PostgreSQL, and production delivery (Docker, Terraform, GitHub Actions, AWS).
 
-## Development
+One-liner I use everywhere: *Backend engineer building APIs and data-heavy systems, then putting them on AWS with Docker, Terraform, and CI/CD.*
 
-During development, you can use the following npm scripts:
+The visual shell started from a Vite + React + Three.js template. The identity, copy, projects, experience, and case studies are mine. There is no tutorial persona, no fake FAANG employment, and no placeholder “Car Rent” cards.
 
-- **Start Development Server:** Run `npm run dev` to start the development server using Vite.
-- **Build Production Code:** Use `npm run build` to build production-ready code using Vite.
+## Stack
 
-## Technologies Used
+- React, Vite, Tailwind CSS, Framer Motion
+- Optional 3D (desktop only, skipped on small screens and `prefers-reduced-motion`)
+- EmailJS for the contact form (falls back to mailto)
 
-- **React:** Building the user interface and components.
-- **React Router:** Handling routing within the application.
-- **React Three Fiber:** Integrating 3D elements into the portfolio.
-- **Framer Motion:** Adding animations and transitions.
-- **React Vertical Timeline Component:** Displaying experiences in a vertical timeline format.
-- **EmailJS:** Integrating email functionality into the portfolio.
+## Run locally
+
+```bash
+git clone https://github.com/Swapno963/Personal_Portfolio_3D.git
+cd Personal_Portfolio_3D
+npm install --legacy-peer-deps
+cp .env.example .env   # optional EmailJS keys
+npm run dev
+```
+
+Open [http://localhost:5173](http://localhost:5173).
+
+## Pages
+
+- `/` — hiring homepage (about, projects, experience, skills, contact)
+- `/projects/education-saas`
+- `/projects/querymind`
+- `/projects/shopverse`
+
+Resume PDF: `public/Swapno-Mondol-Backend-DevOps.pdf`
+
+## Links
+
+- GitHub: [github.com/Swapno963](https://github.com/Swapno963)
+- LinkedIn: [linkedin.com/in/swapno-mondol-me](https://www.linkedin.com/in/swapno-mondol-me)
+- Email: swapno963@gmail.com

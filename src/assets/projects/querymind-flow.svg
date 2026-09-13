@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="qmTitle">
+  <title id="qmTitle">QueryMind generate-validate-execute flow</title>
+  <rect width="960" height="540" rx="24" fill="#0b0a1a"/>
+  <rect x="24" y="24" width="912" height="492" rx="18" fill="#151030"/>
+  <text x="48" y="68" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="16" letter-spacing="2">QUERYMIND SAFETY MODEL</text>
+  <text x="48" y="104" fill="#ffffff" font-family="Poppins, Inter, Arial, sans-serif" font-size="26" font-weight="700">Natural language to SQL, only if it is safe</text>
+
+  <rect x="56" y="150" width="160" height="70" rx="12" fill="#100d25" stroke="#915EFF"/>
+  <text x="136" y="180" text-anchor="middle" fill="#ffffff" font-family="Poppins, Inter, Arial, sans-serif" font-size="15" font-weight="600">Question</text>
+  <text x="136" y="202" text-anchor="middle" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="12">Plain English</text>
+
+  <rect x="248" y="150" width="160" height="70" rx="12" fill="#100d25" stroke="#56ccf2"/>
+  <text x="328" y="180" text-anchor="middle" fill="#ffffff" font-family="Poppins, Inter, Arial, sans-serif" font-size="15" font-weight="600">Schema</text>
+  <text x="328" y="202" text-anchor="middle" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="12">Inspect + allow-list</text>
+
+  <rect x="440" y="150" width="160" height="70" rx="12" fill="#100d25" stroke="#f5af19"/>
+  <text x="520" y="180" text-anchor="middle" fill="#ffffff" font-family="Poppins, Inter, Arial, sans-serif" font-size="15" font-weight="600">Generate</text>
+  <text x="520" y="202" text-anchor="middle" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="12">LLM drafts SQL</text>
+
+  <rect x="632" y="150" width="160" height="70" rx="12" fill="#100d25" stroke="#38ef7d"/>
+  <text x="712" y="180" text-anchor="middle" fill="#ffffff" font-family="Poppins, Inter, Arial, sans-serif" font-size="15" font-weight="600">Validate</text>
+  <text x="712" y="202" text-anchor="middle" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="12">Parse, SELECT only</text>
+
+  <rect x="776" y="280" width="128" height="70" rx="12" fill="#100d25" stroke="#38ef7d"/>
+  <text x="840" y="310" text-anchor="middle" fill="#ffffff" font-family="Poppins, Inter, Arial, sans-serif" font-size="15" font-weight="600">Execute</text>
+  <text x="840" y="332" text-anchor="middle" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="12">Read-only txn</text>
+
+  <rect x="56" y="390" width="400" height="88" rx="12" fill="#100d25" stroke="#56ccf2"/>
+  <text x="76" y="424" fill="#ffffff" font-family="Poppins, Inter, Arial, sans-serif" font-size="16" font-weight="600">QueryMind DB</text>
+  <text x="76" y="448" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="13">Users, orgs, connections, schema cache, history - not client rows</text>
+
+  <rect x="504" y="390" width="400" height="88" rx="12" fill="#100d25" stroke="#fc6767"/>
+  <text x="524" y="424" fill="#ffffff" font-family="Poppins, Inter, Arial, sans-serif" font-size="16" font-weight="600">Client DB (separate)</text>
+  <text x="524" y="448" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="13">Read-only role. Writes, multi-statements, and unknown tables fail closed.</text>
+
+  <polyline points="216,185 248,185" fill="none" stroke="#aaa6c3" stroke-width="2"/>
+  <polyline points="408,185 440,185" fill="none" stroke="#aaa6c3" stroke-width="2"/>
+  <polyline points="600,185 632,185" fill="none" stroke="#aaa6c3" stroke-width="2"/>
+  <polyline points="792,185 840,185 840,280" fill="none" stroke="#aaa6c3" stroke-width="2"/>
+</svg>

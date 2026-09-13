@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="rqTitle">
+  <title id="rqTitle">Restaurant QR ordering tenant flow</title>
+  <rect width="960" height="540" rx="24" fill="#0b0a1a"/>
+  <rect x="24" y="24" width="912" height="492" rx="18" fill="#151030"/>
+  <text x="48" y="68" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="16" letter-spacing="2">RESTAURANT QR ORDERING SAAS</text>
+  <text x="48" y="104" fill="#ffffff" font-family="Poppins, Inter, Arial, sans-serif" font-size="26" font-weight="700">Every row belongs to a restaurant tenant</text>
+
+  <rect x="56" y="160" width="200" height="90" rx="12" fill="#100d25" stroke="#915EFF"/>
+  <text x="156" y="198" text-anchor="middle" fill="#ffffff" font-family="Poppins, Inter, Arial, sans-serif" font-size="18" font-weight="600">QR scan</text>
+  <text x="156" y="224" text-anchor="middle" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="13">Table to tenant</text>
+
+  <rect x="280" y="160" width="200" height="90" rx="12" fill="#100d25" stroke="#56ccf2"/>
+  <text x="380" y="198" text-anchor="middle" fill="#ffffff" font-family="Poppins, Inter, Arial, sans-serif" font-size="18" font-weight="600">Restaurant</text>
+  <text x="380" y="224" text-anchor="middle" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="13">Branch / menu / staff</text>
+
+  <rect x="504" y="160" width="200" height="90" rx="12" fill="#100d25" stroke="#f5af19"/>
+  <text x="604" y="198" text-anchor="middle" fill="#ffffff" font-family="Poppins, Inter, Arial, sans-serif" font-size="18" font-weight="600">Order rules</text>
+  <text x="604" y="224" text-anchor="middle" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="13">Status / isolation</text>
+
+  <rect x="728" y="160" width="176" height="90" rx="12" fill="#100d25" stroke="#38ef7d"/>
+  <text x="816" y="198" text-anchor="middle" fill="#ffffff" font-family="Poppins, Inter, Arial, sans-serif" font-size="18" font-weight="600">Kitchen</text>
+  <text x="816" y="224" text-anchor="middle" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="13">Role-scoped</text>
+
+  <rect x="56" y="300" width="848" height="180" rx="12" fill="#100d25"/>
+  <text x="80" y="348" fill="#ffffff" font-family="Poppins, Inter, Arial, sans-serif" font-size="18" font-weight="600">Django / DRF / tenant-scoped models</text>
+  <text x="80" y="384" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="15">UUID PKs, restaurant FK on staff/menu/orders, role choices (owner, manager, kitchen, waiter).</text>
+  <text x="80" y="416" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="15">Data isolation is a schema constraint, not a UI filter. Source available on request.</text>
+  <text x="80" y="448" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="15">Not positioning this as a polished consumer app - the work is the multi-tenant model.</text>
+</svg>

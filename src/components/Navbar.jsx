@@ -1,29 +1,21 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
-import { close, logo, menu } from "../assets";
-import { navLinks } from "../constants";
 import { styles } from "../styles";
-import { common_text } from "../constants";
-import { useLocation } from "react-router-dom";
+import { navLinks } from "../constants";
+import { logo, menu, close } from "../assets";
+import ResumeLinks from "./analytics/ResumeLinks";
 
-export default function Navbar() {
-        const { search } = useLocation();
-        const query = new URLSearchParams(search);
-        const mode = query.get("mode") || "backend"; 
-        
+const Navbar = () => {
   const [active, setActive] = useState("");
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+  const onHome = location.pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      if (scrollTop > 100) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(window.scrollY > 100);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -31,11 +23,11 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const sectionHref = (id) => (onHome ? `#${id}` : `/#${id}`);
+
   return (
     <nav
-      className={`${
-        styles.paddingX
-      } w-full flex items-center py-5 fixed top-0 z-20 ${
+      className={`${styles.paddingX} w-full flex items-center py-5 fixed top-0 z-20 ${
         scrolled ? "bg-primary" : "bg-transparent"
       }`}
     >
@@ -48,14 +40,14 @@ export default function Navbar() {
             window.scrollTo(0, 0);
           }}
         >
-          <img src={logo} alt="logo" className="w-12 h-12 object-contain " />
-          <p className="text-white text-[18px] font-bold cursor-pointer flex ">
-            Swapno &nbsp;
-            <span className="sm:block hidden"> | {mode && common_text[mode]?.nav_title}</span>
+          <img src={logo} alt="Swapno Mondol" className="w-9 h-9 object-contain" />
+          <p className="text-white text-[18px] font-bold cursor-pointer flex">
+            Swapno Mondol{" "}
+            <span className="sm:block hidden">&nbsp;| Backend Engineer</span>
           </p>
         </Link>
 
-        <ul className="list-none hidden sm:flex flex-row gap-10">
+        <ul className="list-none hidden sm:flex flex-row items-center gap-8">
           {navLinks.map((nav) => (
             <li
               key={nav.id}
@@ -64,9 +56,16 @@ export default function Navbar() {
               } hover:text-white text-[18px] font-medium cursor-pointer`}
               onClick={() => setActive(nav.title)}
             >
-              <a href={`#${nav.id}`}>{nav.title}</a>
+              <a href={sectionHref(nav.id)}>{nav.title}</a>
             </li>
           ))}
+          <li className="flex items-center gap-3">
+            <ResumeLinks
+              source="nav"
+              viewClassName="text-white text-[16px] font-semibold border border-[#915EFF] px-4 py-2 rounded-lg hover:bg-[#915EFF]"
+              downloadClassName="text-secondary hover:text-white text-[16px] font-medium"
+            />
+          </li>
         </ul>
 
         <div className="sm:hidden flex flex-1 justify-end items-center">
@@ -80,7 +79,7 @@ export default function Navbar() {
           <div
             className={`${
               !toggle ? "hidden" : "flex"
-            } p-6 black-gradient absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl`}
+            } p-6 black-gradient absolute top-20 right-0 mx-4 my-2 min-w-[160px] z-10 rounded-xl`}
           >
             <ul className="list-none flex justify-end items-start flex-1 flex-col gap-4">
               {navLinks.map((nav) => (
@@ -90,17 +89,26 @@ export default function Navbar() {
                     active === nav.title ? "text-white" : "text-secondary"
                   }`}
                   onClick={() => {
-                    setToggle(!toggle);
+                    setToggle(false);
                     setActive(nav.title);
                   }}
                 >
-                  <a href={`#${nav.id}`}>{nav.title}</a>
+                  <a href={sectionHref(nav.id)}>{nav.title}</a>
                 </li>
               ))}
+              <li className="flex flex-col items-end gap-2">
+                <ResumeLinks
+                  source="nav"
+                  viewClassName="text-white font-medium text-[16px]"
+                  downloadClassName="text-secondary hover:text-white font-medium text-[16px]"
+                />
+              </li>
             </ul>
           </div>
         </div>
       </div>
     </nav>
   );
-}
+};
+
+export default Navbar;

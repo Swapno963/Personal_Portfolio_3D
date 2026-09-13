@@ -1,10 +1,24 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { PostHogProvider } from "@posthog/react";
+import posthog from "posthog-js";
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+import App from "./App";
+import { POSTHOG_KEY, posthogOptions } from "./lib/analytics";
+import "./index.css";
+
+if (POSTHOG_KEY) {
+  posthog.init(POSTHOG_KEY, posthogOptions);
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+    {POSTHOG_KEY ? (
+      <PostHogProvider client={posthog}>
+        <App />
+      </PostHogProvider>
+    ) : (
+      <App />
+    )}
+  </React.StrictMode>
+);

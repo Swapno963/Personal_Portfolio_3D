@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="svTitle">
+  <title id="svTitle">ShopVerse service boundaries</title>
+  <rect width="960" height="540" rx="24" fill="#0b0a1a"/>
+  <rect x="24" y="24" width="912" height="492" rx="18" fill="#151030"/>
+  <text x="48" y="68" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="16" letter-spacing="2">SHOPVERSE / FASTAPI MICROSERVICES</text>
+  <text x="48" y="104" fill="#ffffff" font-family="Poppins, Inter, Arial, sans-serif" font-size="24" font-weight="700">Inventory is strongly consistent. Everything else can wait.</text>
+
+  <rect x="56" y="150" width="848" height="56" rx="12" fill="#915EFF"/>
+  <text x="480" y="185" text-anchor="middle" fill="#ffffff" font-family="Poppins, Inter, Arial, sans-serif" font-size="18" font-weight="600">HTTP APIs / Docker Compose / explicit service boundaries</text>
+
+  <rect x="56" y="240" width="200" height="110" rx="12" fill="#100d25" stroke="#56ccf2"/>
+  <text x="156" y="284" text-anchor="middle" fill="#ffffff" font-family="Poppins, Inter, Arial, sans-serif" font-size="18" font-weight="600">User</text>
+  <text x="156" y="312" text-anchor="middle" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="13">JWT / MongoDB</text>
+
+  <rect x="272" y="240" width="200" height="110" rx="12" fill="#100d25" stroke="#56ccf2"/>
+  <text x="372" y="284" text-anchor="middle" fill="#ffffff" font-family="Poppins, Inter, Arial, sans-serif" font-size="18" font-weight="600">Product</text>
+  <text x="372" y="312" text-anchor="middle" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="13">Catalog / MongoDB</text>
+
+  <rect x="488" y="240" width="200" height="110" rx="12" fill="#100d25" stroke="#38ef7d" stroke-width="2"/>
+  <text x="588" y="276" text-anchor="middle" fill="#ffffff" font-family="Poppins, Inter, Arial, sans-serif" font-size="18" font-weight="600">Inventory</text>
+  <text x="588" y="300" text-anchor="middle" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="13">Postgres / FOR UPDATE</text>
+  <text x="588" y="322" text-anchor="middle" fill="#38ef7d" font-family="Poppins, Inter, Arial, sans-serif" font-size="12">ACID + history</text>
+
+  <rect x="704" y="240" width="200" height="110" rx="12" fill="#100d25" stroke="#f5af19"/>
+  <text x="804" y="284" text-anchor="middle" fill="#ffffff" font-family="Poppins, Inter, Arial, sans-serif" font-size="18" font-weight="600">Order</text>
+  <text x="804" y="312" text-anchor="middle" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="13">Pending if reserve fails</text>
+
+  <rect x="56" y="390" width="848" height="88" rx="12" fill="#100d25" stroke="#aaa6c3"/>
+  <text x="76" y="426" fill="#ffffff" font-family="Poppins, Inter, Arial, sans-serif" font-size="16" font-weight="600">Known gap: no outbox / saga yet</text>
+  <text x="76" y="452" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="14">Reservation failure leaves the order pending. Compensation is a client retry today.</text>
+</svg>
