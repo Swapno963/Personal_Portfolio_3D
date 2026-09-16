@@ -274,7 +274,7 @@ const projects = [
       "People need answers from a client database in plain English. An LLM cannot be allowed to run arbitrary SQL against production data.",
     role: "Backend: schema inspection, SQL generation, validation, and read-only execution.",
     description:
-      "NL → SQL with schema inspection, sqlglot validation, table allow-lists, and read-only execution. Distinct from CRUD. No public hosted demo — architecture and GitHub are the proof.",
+      "NL → SQL with schema inspection, sqlglot validation, table allow-lists, and read-only execution. Distinct from CRUD. Live demo and GitHub are the proof.",
     tags: [
       { name: "django", color: "blue-text-gradient" },
       { name: "postgresql", color: "green-text-gradient" },
@@ -282,7 +282,7 @@ const projects = [
     ],
     image: querymindFlow,
     source_code_link: "https://github.com/Swapno963/Query-Mind",
-    live_link: null,
+    live_link: "https://chatapp.clustorflow.com",
     stack: ["Django", "PostgreSQL", "sqlglot", "SSE streaming", "LLM-assisted SQL"],
     diagrams: [
       {
@@ -330,7 +330,7 @@ const projects = [
       ],
       challenges: [
         "Prompting the whole schema does not survive a real client database. Table selection has to happen first.",
-        "A hosted demo is not public. I am not going to invent a live URL. GitHub and this write-up are the evidence.",
+        "Prompting the whole schema does not survive a real client database. Table selection has to happen first, then validation, then a read-only execute.",
       ],
       deploy: [
         "Runnable as a Django app with a QueryMind database plus a client database connection.",
@@ -457,7 +457,7 @@ const projects = [
     ],
     image: restaurantFlow,
     source_code_link: null,
-    live_link: null,
+    live_link: "https://easyserve.clustorflow.com",
     stack: ["Django", "DRF", "PostgreSQL"],
     diagrams: [
       {
