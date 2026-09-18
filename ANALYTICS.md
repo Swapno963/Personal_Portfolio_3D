@@ -48,7 +48,7 @@ Init is privacy-safe:
 | `scroll_depth` | 25 / 50 / 75 / 90, once each per page | `page`, `depth` |
 | `external_link_click` | Any other outbound URL | `destination` (host only) |
 
-Stable project IDs: `education_saas` (backend), `querymind` (ai), `shopverse` (backend), `restaurant_qr` (saas). Resume file today is `resume_version: "backend_v1"`.
+Stable project IDs: `education_saas` (backend), `querymind` (ai), `shopverse` (backend), `restaurant_qr` (saas). Resume file today is `resume_version: "backend_v2"`.
 
 Do **not** send names, emails, message bodies, or full URLs with query strings.
 
@@ -64,10 +64,10 @@ Replace `https://YOUR_DOMAIN` with the production host. Never put a company or p
 https://YOUR_DOMAIN/?utm_source=linkedin&utm_medium=social&utm_campaign=backend
 ```
 
-**USA backend applications (resume v1)**
+**USA backend applications (resume v2)**
 
 ```
-https://YOUR_DOMAIN/?utm_source=application&utm_medium=job_application&utm_campaign=usa_backend&utm_content=resume_v1
+https://YOUR_DOMAIN/?utm_source=application&utm_medium=job_application&utm_campaign=usa_backend&utm_content=resume_v2
 ```
 
 **Europe backend applications**

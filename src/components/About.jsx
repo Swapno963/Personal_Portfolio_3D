@@ -61,9 +61,11 @@ const About = () => {
         className="mt-4 text-secondary text-[17px] max-w-3xl leading-[30px]"
       >
         Day to day I work in Python (Django/DRF, FastAPI) and Go (Gin), with
-        PostgreSQL and Redis. I can ship React/Next when a product needs a UI.
-        I am not positioning myself as a frontend or Three.js specialist, and I
-        do not list Kubernetes as a core skill.
+        PostgreSQL and Redis. QueryMind is the system I use to talk about
+        AI in production: LangGraph, allow-lists, and a policy layer so the
+        model cannot authorize writes. I can ship React/Next when a product
+        needs a UI. I am not positioning myself as a frontend or Three.js
+        specialist, and I do not list Kubernetes as a core skill.
       </motion.p>
 
       <div className="mt-20 flex flex-wrap gap-10">

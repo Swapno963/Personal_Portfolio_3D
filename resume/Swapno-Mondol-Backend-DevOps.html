@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Swapno Mondol — Backend Engineer</title>
+  <style>
+    @page { size: A4; margin: 10mm 12mm; }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: "Calibri", "Liberation Sans", "Segoe UI", Arial, sans-serif;
+      font-size: 10pt;
+      line-height: 1.22;
+      color: #1a1a1a;
+    }
+    h1 {
+      margin: 0;
+      font-size: 20pt;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+      color: #12233d;
+    }
+    .role {
+      margin: 1px 0 4px;
+      font-size: 10.5pt;
+      color: #2b4c7e;
+      font-weight: 600;
+    }
+    .meta { color: #333; font-size: 9.3pt; }
+    .meta a { color: #1a365d; text-decoration: none; }
+    h2 {
+      margin: 8px 0 3px;
+      font-size: 10pt;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #12233d;
+      border-bottom: 1.3px solid #12233d;
+      padding-bottom: 1px;
+    }
+    p { margin: 0 0 3px; }
+    ul { margin: 1px 0 0 15px; padding: 0; }
+    li { margin: 0 0 2px; }
+    .job { margin-bottom: 5px; }
+    .job-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-weight: 700;
+    }
+    .job-sub {
+      font-style: italic;
+      color: #333;
+      margin-bottom: 1px;
+    }
+    .proj-title { font-weight: 700; margin-bottom: 1px; }
+    .muted { color: #333; font-weight: 400; }
+  </style>
+</head>
+<body>
+  <h1>SWAPNO MONDOL</h1>
+  <div class="role">Software Engineer · Backend · Cloud &amp; DevOps</div>
+  <div class="meta">
+    swapno963@gmail.com · +880 1709-112230 · Dhaka, Bangladesh · Open to EU / US remote or relocation<br />
+    <a href="https://github.com/Swapno963/Personal_Portfolio_3D">Portfolio</a> ·
+    <a href="https://www.linkedin.com/in/swapno-mondol-me">LinkedIn</a> ·
+    <a href="https://github.com/Swapno963">GitHub</a>
+  </div>
+
+  <h2>Professional Summary</h2>
+  <p>
+    Backend-focused Software Engineer with production experience in Go, Python (Django, FastAPI), PostgreSQL,
+    and containerized deployments on Docker and Kubernetes. Delivers multi-tenant APIs, RBAC, and CI/CD across
+    on-premise and AWS. Recent product work: QueryMind — LangGraph NL-to-SQL with org-scoped catalogs,
+    multi-engine adapters, and a policy layer so the LLM cannot authorize writes. Prior remote work with a UK
+    product team; targeting Europe and United States opportunities.
+  </p>
+
+  <h2>Technical Skills</h2>
+  <p>
+    <strong>Backend:</strong> Go, Python, Django / DRF, FastAPI, REST APIs, OAuth2, JWT, RBAC, LangGraph,
+    MCP client, sqlglot, Kafka, Celery, Redis, query optimization, multi-database architecture
+    (PostgreSQL, MySQL, Oracle, SQL Server, MongoDB)
+  </p>
+  <p>
+    <strong>Cloud &amp; DevOps:</strong> AWS (EC2, VPC, ALB/NLB, ECR, S3, SES, Lambda, ECS), Docker,
+    Kubernetes / K3s, Terraform, Pulumi, Ansible, Helm, Kustomize, CI/CD (GitHub Actions, Jenkins, GitLab),
+    GitOps (Argo CD), Linux, Bash
+  </p>
+  <p>
+    <strong>Observability &amp; Security:</strong> Prometheus, Grafana, Loki, Tempo, OpenTelemetry, AWS WAF, Cilium
+    · <strong>Frontend:</strong> TypeScript, React.js, Next.js, Tailwind CSS, Material UI
+  </p>
+
+  <h2>Professional Experience</h2>
+  <div class="job">
+    <div class="job-head">
+      <span>Backend Developer — Meraki Innovation</span>
+      <span>Jan 2025 – Present</span>
+    </div>
+    <div class="job-sub">Dhaka, Bangladesh</div>
+    <ul>
+      <li>Led architecture and development of a configurable multi-tenant dashboard enabling custom widgets from internal databases, external databases, and APIs—with dynamic table generation, secure file uploads, and RBAC-driven workflows.</li>
+      <li>Designed a document versioning system with revision tracking and historical management to strengthen auditability in production.</li>
+      <li>Owned CI/CD pipelines and production deployments across on-premise Windows Server and AWS using Terraform.</li>
+      <li>Containerized backend services with Docker; handled database migrations and production troubleshooting across PostgreSQL and multi-engine environments.</li>
+    </ul>
+  </div>
+  <div class="job">
+    <div class="job-head">
+      <span>Backend Developer — Cooking Station</span>
+      <span>Sep 2024 – Dec 2024</span>
+    </div>
+    <div class="job-sub">London, United Kingdom (Remote)</div>
+    <ul>
+      <li>Maintained and extended a production Django (MVT) application—resolved bugs, shipped new features, and customized the admin panel with minimal disruption.</li>
+      <li>Redesigned database schemas for evolving business requirements while preserving data integrity, backward compatibility, and performance.</li>
+      <li>Integrated third-party APIs and scheduled jobs; collaborated on deployment workflows, environment setup, and staging/live issue resolution.</li>
+    </ul>
+  </div>
+
+  <h2>Selected Projects</h2>
+  <div class="job">
+    <p class="proj-title">QueryMind — Controlled NL-to-SQL &amp; MCP execution <span class="muted">| Django · LangGraph · sqlglot · PostgreSQL / MySQL / Oracle / SQL Server</span></p>
+    <ul>
+      <li>LangGraph agent for client databases: schema allow-lists, dialect-aware sqlglot validation, SELECT-only SQL. Live: chatapp.clustorflow.com · GitHub: Query-Mind.</li>
+      <li>Org admin/member RBAC: admins own the shared catalog and MCP HTTP URL; members only see their own conversations; connections never cross tenants.</li>
+      <li>Deterministic policy: MCP for writes/business actions, SQL only for reads. Matching uses tool JSON schema. Writes never fall back to SQL.</li>
+    </ul>
+  </div>
+  <div class="job">
+    <p class="proj-title">ShopVerse — Modular E-commerce Backend <span class="muted">| FastAPI · Docker · Nginx · JWT</span></p>
+    <p>Microservice backend (User, Product, Order, Inventory) with JWT auth, password hashing, and multi-stage Docker images. Nginx reverse proxy routes external traffic to internal services for scalable local and cloud-ready deployment.</p>
+  </div>
+  <div class="job">
+    <p class="proj-title">K3s Microservices on AWS with Pulumi <span class="muted">| AWS · Pulumi · K3s · Docker · Nginx</span></p>
+    <p>Provisioned AWS infrastructure with Pulumi; published Docker images for a Flask API and React frontend; stood up a K3s cluster with Nginx Layer-7 load balancing and verified end-to-end routing.</p>
+  </div>
+
+  <h2>Additional</h2>
+  <p>
+    Languages: English (professional working proficiency) · Work authorization: Bangladesh; seeking EU / US sponsorship or remote-first roles · Available for interviews across CET / EST time zones
+  </p>
+</body>
+</html>

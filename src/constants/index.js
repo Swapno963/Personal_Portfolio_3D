@@ -19,15 +19,15 @@ export const profile = {
   shortRole: "Backend Engineer",
   role: "Backend Engineer · APIs, data, and production systems",
   oneLiner:
-    "Backend engineer building APIs and data-heavy systems, then putting them on AWS with Docker, Terraform, and CI/CD.",
+    "Backend engineer building APIs, data systems, and controlled AI execution — then putting them on AWS with Docker, Terraform, and CI/CD.",
   pitch:
-    "Python and Go backends, PostgreSQL, Docker, AWS, and CI/CD — I design, deploy, and debug systems that have to stay up.",
-  chips: ["Go", "Python", "PostgreSQL", "Docker", "AWS", "Terraform", "GitHub Actions"],
+    "Python and Go backends, PostgreSQL, Docker, AWS, and CI/CD. Recent work: QueryMind, a LangGraph NL-to-SQL product with org RBAC, multi-engine databases, and a policy layer so the LLM cannot authorize writes.",
+  chips: ["Go", "Python", "Django", "PostgreSQL", "LangGraph", "Docker", "AWS"],
   email: "swapno963@gmail.com",
   github: "https://github.com/Swapno963",
   linkedin: "https://www.linkedin.com/in/swapno-mondol-me",
   resume: "/Swapno-Mondol-Backend-DevOps.pdf",
-  resume_version: "backend_v1",
+  resume_version: "backend_v2",
   location: "Dhaka, Bangladesh",
 };
 
@@ -73,12 +73,17 @@ const skillGroups = [
   {
     title: "Backend",
     level: "Strong",
-    items: ["Python (Django, DRF, FastAPI)", "Go (Gin)", "REST APIs", "AuthN/AuthZ"],
+    items: ["Python (Django, DRF, FastAPI)", "Go (Gin)", "REST APIs", "AuthN/AuthZ", "LangGraph"],
   },
   {
     title: "Databases",
     level: "Strong",
-    items: ["PostgreSQL", "Redis", "MongoDB (working)", "Schema design & transactions"],
+    items: [
+      "PostgreSQL",
+      "MySQL / Oracle / SQL Server (adapters)",
+      "Redis",
+      "Schema design, allow-lists, transactions",
+    ],
   },
   {
     title: "Infra & DevOps",
@@ -98,6 +103,7 @@ const skillGroups = [
       "Background workers (Asynq)",
       "Polyglot persistence",
       "Multi-tenant data models",
+      "Policy-gated AI execution (MCP vs SQL)",
     ],
   },
   {
@@ -272,38 +278,46 @@ const projects = [
     sourceStatus: "public",
     problem:
       "People need answers from a client database in plain English. An LLM cannot be allowed to run arbitrary SQL against production data.",
-    role: "Backend: schema inspection, SQL generation, validation, and read-only execution.",
+    role: "Backend: LangGraph agent, org RBAC, multi-engine connections, MCP policy routing, read-only SQL.",
     description:
-      "NL → SQL with schema inspection, sqlglot validation, table allow-lists, and read-only execution. Distinct from CRUD. Live demo and GitHub are the proof.",
+      "NL → SQL with schema inspection, sqlglot validation, org-scoped catalogs, and a deterministic policy layer: MCP for writes, SQL only for reads. Live demo and GitHub are the proof.",
     tags: [
       { name: "django", color: "blue-text-gradient" },
-      { name: "postgresql", color: "green-text-gradient" },
+      { name: "langgraph", color: "green-text-gradient" },
       { name: "sql-safety", color: "pink-text-gradient" },
     ],
     image: querymindFlow,
     source_code_link: "https://github.com/Swapno963/Query-Mind",
     live_link: "https://chatapp.clustorflow.com",
-    stack: ["Django", "PostgreSQL", "sqlglot", "SSE streaming", "LLM-assisted SQL"],
+    stack: [
+      "Django / DRF",
+      "LangGraph",
+      "PostgreSQL / MySQL / Oracle / SQL Server",
+      "sqlglot",
+      "MCP client",
+      "SSE streaming",
+    ],
     diagrams: [
       {
         src: querymindFlow,
-        alt: "QueryMind flow from a natural-language question through schema inspection, SQL generation, validation, and read-only execution.",
+        alt: "QueryMind flow from a natural-language question through operation classification, policy routing, MCP or SQL, then schema inspection, validation, and read-only execution.",
       },
     ],
     screenshots: [],
     caseStudy: {
       summary:
-        "QueryMind does not store the client’s business rows. It connects to a client database, reads schema, turns a question into SQL, validates that SQL, and only then executes it under a read-only transaction.",
+        "QueryMind answers questions from a client database in plain English. The model may draft SQL or pick an MCP tool; a deterministic policy layer decides what is allowed. Writes never fall back to SQL.",
       problem:
-        "Analysts and staff can describe the question they have. They should not need to know the schema, and the model should not be able to change data.",
+        "Staff can describe the question they have. They should not need the schema, and an LLM must not be the authority for mutating production data.",
       users:
-        "Organization members who attach a database connection. Each connection is tenant-scoped so Customer A’s question never runs on Customer B’s database.",
+        "A service-provider admin owns the organization, connects the shared catalog, and creates members. Members ask questions and only see their own conversations. Each org’s connections never run against another org’s database.",
       constraints:
-        "Fail closed. Empty allow-list means no query. Writes are not a feature. Large schemas cannot all be dumped into a prompt.",
+        "Fail closed. Empty allow-list means no SQL. The SQL agent is SELECT-only regardless of what the model emits. CREATE/UPDATE/DELETE/business actions require a matching MCP tool. Capability matching uses the tool JSON schema, not the tool name alone.",
       architecture: [
-        "QueryMind’s own Postgres: users, organizations, connections, cached schema, query history.",
-        "Client database is separate. Credentials are stored for the connection, not mixed into QueryMind’s product tables.",
-        "Pipeline: identify connection → load/filter schema → generate SQL → validate → execute read-only → return rows / explanation.",
+        "QueryMind’s own database: users, organizations, memberships, workspaces, conversations, hashed API keys.",
+        "Client database is separate. Admins connect PostgreSQL, MySQL, Oracle, or SQL Server with encrypted credentials and an allow-list of tables and columns.",
+        "LangGraph: classify operation → policy → MCP capability match → either MCP execute or the existing SQL planner/schema/generate/validate/explain/critic/execute path.",
+        "READ may use MCP when a tool can satisfy the request; otherwise the read-only SQL agent. Mutations require MCP or they are denied.",
       ],
       decisions: [
         {
@@ -311,38 +325,45 @@ const projects = [
           body: "QueryMind metadata is not the client’s OLTP data. Mixing them would make tenancy and backups dishonest.",
         },
         {
-          title: "Generate → validate → execute",
-          body: "The model drafts SQL. sqlglot parses it. Only a single SELECT is allowed. Tables must be on the allow-list. Normalized SQL is what actually runs — not the raw model string.",
+          title: "Policy is code, not a prompt",
+          body: "The LLM extracts structured intent. A Python policy table decides MCP vs SQL. There is no graph edge from a failed MCP write to SQL generation.",
         },
         {
-          title: "Read-only transaction + timeout + row cap",
-          body: "SET TRANSACTION READ ONLY, statement_timeout, and a max row count. Streaming exists so large results do not require loading everything at once.",
+          title: "Generate → validate → execute for reads",
+          body: "The model drafts SQL. sqlglot parses it in the engine dialect. Only a single SELECT is allowed. Tables and columns must be on the allow-list. Normalized SQL is what runs — not the raw model string.",
         },
         {
-          title: "What the model is not allowed to do",
-          body: "No DELETE/UPDATE/INSERT, no multiple statements, no tables outside the allow-list, no execution if the allow-list is empty. Invalid SQL fails closed instead of ‘trying it anyway’.",
+          title: "MCP as the business-logic boundary",
+          body: "Org admins configure an MCP HTTP server URL. Tools are listed at request time. Matching requires operation, resource, and parameter coverage from inputSchema. Aggregation/join questions that a get_order tool cannot express fall back to SQL only when the operation is READ.",
+        },
+        {
+          title: "Org admin vs member",
+          body: "Signup creates an organization administrator. Admins manage users, the shared workspace, and the MCP URL. Conversations stay private to the author. Deactivated members cannot use existing API keys.",
         },
       ],
       implementation: [
-        "Schema discovery from database metadata, then filtering to selected tables before the prompt.",
-        "ReadOnlySQLExecutor: parse, permission check, read-only txn, execute or stream.",
-        "Chat path streams status (schema, generate, validate, execute) over SSE so the user sees the safety steps, not a magic box.",
+        "Schema discovery per engine, then filtering to selected tables before the prompt.",
+        "ReadOnlySQLExecutor: parse, permission check, engine-specific read-only session, execute or stream.",
+        "Classifier + policy + capability nodes in front of the existing SQL subgraph — the SQL agent was not rewritten.",
+        "Chat path streams status (classify, policy, MCP or SQL steps) over SSE so the user sees the safety steps, not a magic box.",
       ],
       challenges: [
-        "Prompting the whole schema does not survive a real client database. Table selection has to happen first.",
-        "Prompting the whole schema does not survive a real client database. Table selection has to happen first, then validation, then a read-only execute.",
+        "Prompting the whole schema does not survive a real client database. Table selection happens first, then validation, then read-only execute.",
+        "MCP tool schemas are often thin. Conservative matching over-uses SQL for reads (acceptable) and over-denies writes (correct).",
+        "EXPLAIN JSON is PostgreSQL/MySQL only. Oracle and SQL Server skip that step; AST validation still applies.",
       ],
       deploy: [
         "Runnable as a Django app with a QueryMind database plus a client database connection.",
-        "No production IP, demo password, or shared student/customer dataset is published here.",
+        "No production IP, demo password, or shared customer dataset is published here.",
       ],
       results: [
         "A backend that treats SQL generation as a privileged compiler pass, not as ‘let the model talk to Postgres’.",
-        "Tests cover reject-without-allow-list, reject writes, and fail-closed invalid SQL.",
+        "Unit tests cover RBAC isolation, engine dialect validation, reject-without-allow-list, reject writes/DDL, READ→MCP vs READ→SQL, and deny-on-unmatched mutations.",
       ],
       lessons: [
-        "Safety is the product. If validation is optional, this is just a text-to-SQL toy.",
-        "I still would not expose a write path ‘for convenience’. Compensation and approvals are a different system.",
+        "Safety is the product. If validation or policy is optional, this is just a text-to-SQL toy.",
+        "The model can misunderstand intent. Verb overrides plus a SELECT-only executor are the hard boundaries for SQL.",
+        "I still would not expose a SQL write path ‘for convenience’. Compensation and approvals belong in MCP/business APIs.",
       ],
     },
   },

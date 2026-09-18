@@ -1,8 +1,8 @@
 # Swapno Mondol — Backend portfolio
 
-Personal site for [Swapno Mondol](https://github.com/Swapno963): backend engineer focused on APIs, PostgreSQL, and production delivery (Docker, Terraform, GitHub Actions, AWS).
+Personal site for [Swapno Mondol](https://github.com/Swapno963): backend engineer focused on APIs, PostgreSQL, controlled AI execution (LangGraph / MCP policy), and production delivery (Docker, Terraform, GitHub Actions, AWS).
 
-One-liner I use everywhere: *Backend engineer building APIs and data-heavy systems, then putting them on AWS with Docker, Terraform, and CI/CD.*
+One-liner I use everywhere: *Backend engineer building APIs, data systems, and controlled AI execution — then putting them on AWS with Docker, Terraform, and CI/CD.*
 
 The visual shell started from a Vite + React + Three.js template. The identity, copy, projects, experience, and case studies are mine. There is no tutorial persona, no fake FAANG employment, and no placeholder “Car Rent” cards.
 
@@ -31,7 +31,7 @@ Open [http://localhost:5173](http://localhost:5173).
 - `/projects/querymind`
 - `/projects/shopverse`
 
-Resume PDF: `public/Swapno-Mondol-Backend-DevOps.pdf`
+Resume PDF: `public/Swapno-Mondol-Backend-DevOps.pdf` (source HTML: `resume/Swapno-Mondol-Backend-DevOps.html`)
 
 ## Links
 
