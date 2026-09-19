@@ -132,9 +132,7 @@ const Contact = () => {
           </TrackedAnchor>
           <ResumeLinks
             source="contact"
-            viewLabel="Resume (PDF)"
             viewClassName="hover:text-white"
-            downloadClassName="hover:text-white"
           />
         </div>
 

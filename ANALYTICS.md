@@ -23,19 +23,19 @@ Init is privacy-safe:
 - `person_profiles: identified_only` (we never identify, so no person profiles)
 - Session replay on with `maskAllInputs: true` and `maskTextSelector: input, textarea`
 - Contact fields also have the `ph-mask` class
-- Super property on every event: `portfolio_version: "v1"`
+- Super property on every event: `portfolio_version: "v2"`
 
 ## Event taxonomy
 
 | Event | When | Properties |
 | --- | --- | --- |
 | `page_view` | Route change (`/` or `/projects/:slug`) | `page` |
-| `resume_view` | Open PDF in a new tab | `resume_version` |
+| `resume_view` | Open a resume PDF in a new tab | `resume_version` (`backend_v3` or `devops_v1`) |
 | `resume_download` | Explicit download click | `resume_version` |
 | `project_view` | Card ~50% visible **or** case-study page mount | `project`, `project_category` |
 | `project_expand` | Click “Case study” / land on case-study route | `project` |
 | `project_github_click` | GitHub or public write-up from a project | `project` |
-| `project_demo_click` | Live demo link (wired; none exist yet) | `project` |
+| `project_demo_click` | Live demo link | `project` |
 | `project_architecture_click` | Click a case-study diagram | `project` |
 | `experience_view` | `#experience` enters viewport (once/session) | `section: "experience"` |
 | `skills_view` | `#skills` enters viewport (once/session) | `section: "skills"` |
@@ -48,7 +48,7 @@ Init is privacy-safe:
 | `scroll_depth` | 25 / 50 / 75 / 90, once each per page | `page`, `depth` |
 | `external_link_click` | Any other outbound URL | `destination` (host only) |
 
-Stable project IDs: `education_saas` (backend), `querymind` (ai), `shopverse` (backend), `restaurant_qr` (saas). Resume file today is `resume_version: "backend_v2"`.
+Stable project IDs: `education_saas` (backend), `querymind` (ai), `shopverse` (backend), `restaurant_qr` (saas). Resume versions: `backend_v3`, `devops_v1`.
 
 Do **not** send names, emails, message bodies, or full URLs with query strings.
 
@@ -64,10 +64,16 @@ Replace `https://YOUR_DOMAIN` with the production host. Never put a company or p
 https://YOUR_DOMAIN/?utm_source=linkedin&utm_medium=social&utm_campaign=backend
 ```
 
-**USA backend applications (resume v2)**
+**USA backend applications (resume v3)**
 
 ```
-https://YOUR_DOMAIN/?utm_source=application&utm_medium=job_application&utm_campaign=usa_backend&utm_content=resume_v2
+https://YOUR_DOMAIN/?utm_source=application&utm_medium=job_application&utm_campaign=usa_backend&utm_content=resume_v3
+```
+
+**USA DevOps applications**
+
+```
+https://YOUR_DOMAIN/?utm_source=application&utm_medium=job_application&utm_campaign=usa_devops&utm_content=resume_devops_v1
 ```
 
 **Europe backend applications**

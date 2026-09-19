@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Swapno Mondol — Backend Engineer</title>
+  <style>
+    @page { size: A4; margin: 10mm 12mm; }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: "Calibri", "Liberation Sans", "Segoe UI", Arial, sans-serif;
+      font-size: 10pt;
+      line-height: 1.22;
+      color: #1a1a1a;
+    }
+    h1 {
+      margin: 0;
+      font-size: 18pt;
+      letter-spacing: 0.04em;
+      font-weight: 700;
+      color: #12233d;
+    }
+    .role {
+      margin: 1px 0 4px;
+      font-size: 10.5pt;
+      color: #2b4c7e;
+      font-weight: 600;
+    }
+    .meta { color: #333; font-size: 9.2pt; }
+    .meta a { color: #1a365d; text-decoration: none; }
+    h2 {
+      margin: 8px 0 3px;
+      font-size: 10pt;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #12233d;
+      border-bottom: 1.3px solid #12233d;
+      padding-bottom: 1px;
+    }
+    p { margin: 0 0 2px; }
+    ul { margin: 1px 0 0 15px; padding: 0; }
+    li { margin: 0 0 2px; }
+    .job { margin-bottom: 5px; }
+    .job-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-weight: 700;
+    }
+    .job-sub {
+      font-style: italic;
+      color: #333;
+      margin-bottom: 1px;
+    }
+    .proj-title { font-weight: 700; margin-bottom: 1px; }
+    .muted { color: #333; font-weight: 400; }
+  </style>
+</head>
+<body>
+  <h1>SWAPNO MONDOL</h1>
+  <div class="role">Backend Engineer</div>
+  <div class="meta">
+    Mirpur 2, Dhaka, Bangladesh · (+880) 01709112230 ·
+    <a href="mailto:swapno963@gmail.com">swapno963@gmail.com</a><br />
+    <a href="https://www.linkedin.com/in/swapno-mondol-me">LinkedIn</a> ·
+    <a href="https://github.com/Swapno963/Personal_Portfolio_3D">Portfolio</a> ·
+    <a href="https://github.com/Swapno963">GitHub</a> ·
+    <a href="https://chatapp.clustorflow.com">Query Mind (live)</a>
+  </div>
+
+  <h2>Summary</h2>
+  <p>
+    Backend Engineer specializing in Python, Django, FastAPI, and PostgreSQL, with experience building
+    production APIs, data-intensive workflows, and containerized services deployed across AWS and
+    on-premises infrastructure. Takes backend work from schema and business logic through CI/CD,
+    Terraform, and production operation.
+  </p>
+
+  <h2>Skills</h2>
+  <p><strong>Core:</strong> Python, Django, Django REST Framework, FastAPI, PostgreSQL, REST APIs, authentication &amp; authorization</p>
+  <p><strong>Infrastructure:</strong> Docker, AWS (EC2, S3, ECR), Terraform, GitHub Actions, Linux, Nginx</p>
+  <p><strong>Supporting:</strong> Redis, MongoDB, Go · LangGraph, MCP, sqlglot</p>
+  <p><strong>Additional:</strong> React, Next.js, JavaScript</p>
+
+  <h2>Experience</h2>
+  <div class="job">
+    <div class="job-head">
+      <span>Backend Developer — Meraki Innovation</span>
+      <span>Jan 2025 – Present</span>
+    </div>
+    <div class="job-sub">Mirpur 2, Bangladesh</div>
+    <ul>
+      <li>Designed and implemented a configurable production dashboard so operators can compose widgets from internal databases, external databases, and APIs instead of waiting on a new screen for every report.</li>
+      <li>Implemented multi-engine data access across three databases, dynamic table generation, file uploads, and RBAC so widget data and replacement workflows stay inside each tenant’s permissions.</li>
+      <li>Designed document versioning with revision history so operational records stay auditable instead of being overwritten in place.</li>
+      <li>Owned CI/CD and Terraform-based deploys across on-prem Windows Server and AWS so releases are repeatable rather than one-off copies.</li>
+    </ul>
+  </div>
+  <div class="job">
+    <div class="job-head">
+      <span>Backend Developer — Cooking Station</span>
+      <span>Sep 2024 – Dec 2024</span>
+    </div>
+    <div class="job-sub">London, United Kingdom</div>
+    <ul>
+      <li>Maintained a live Django MVT product: bug fixes, new features, and a customized admin panel used in day-to-day operations.</li>
+      <li>Redesigned parts of the database schema under changing production requirements, and integrated third-party APIs and cron jobs so operational work did not sit inside a single request/response cycle.</li>
+    </ul>
+  </div>
+
+  <h2>Projects</h2>
+  <div class="job">
+    <p class="proj-title">Query Mind — Natural-language analytics over client databases
+      <span class="muted">| Django, LangGraph, PostgreSQL, sqlglot, MCP, SSE ·
+        <a href="https://chatapp.clustorflow.com">Live</a> ·
+        <a href="https://github.com/Swapno963/Query-Mind">GitHub</a></span>
+    </p>
+    <ul>
+      <li>Django backend that answers questions in plain English by generating SQL against a connected client database. Query Mind’s own PostgreSQL (users, orgs, connections, schema cache, history) stays separate from client business rows.</li>
+      <li>Generate → validate → execute: sqlglot parses model-drafted SQL; only a single SELECT on allow-listed tables runs, under a read-only transaction with statement timeout, row cap, and a function denylist. Writes, empty allow-lists, and invalid SQL fail closed.</li>
+      <li>MCP client for ServeEasy restaurant tools: scored matching, JWT-scoped catalogs, one confirmation retry on API writes. Chat is read-only for CUD. Encrypted org token for MCP reads; request header still wins. Status streams over SSE.</li>
+    </ul>
+  </div>
+  <div class="job">
+    <p class="proj-title">ShopVerse — Inventory-correct FastAPI services
+      <span class="muted">| FastAPI, PostgreSQL, MongoDB, Docker, JWT ·
+        <a href="https://github.com/Swapno963/Microservice-with-FastAPI">GitHub</a></span>
+    </p>
+    <ul>
+      <li>Split user, product, inventory, and order into independently containerized FastAPI services. Inventory is the only PostgreSQL service (transactions, SELECT FOR UPDATE, history) so stock is not a naive integer update.</li>
+      <li>JWT auth, transactional reserve/release/adjust, and pending orders when reservation fails. Lab-deployable backend, not a live storefront.</li>
+    </ul>
+  </div>
+  <div class="job">
+    <p class="proj-title">Education Institutions SaaS — API plus deploy path
+      <span class="muted">| Go/Gin, PostgreSQL, Redis/Asynq, Docker, Terraform, GitHub Actions, AWS ·
+        <a href="https://github.com/Swapno963/SaaS-Education-Platform-Case-Study">Case study</a></span>
+    </p>
+    <ul>
+      <li>Go APIs, PostgreSQL schema, auth middleware, and Asynq workers off the request path; VPC, subnets, security groups, and EC2 with Terraform.</li>
+      <li>GitHub Actions format, vet, lint, tests, security scan, then SHA-tagged images to ECR. Compose on EC2 with Nginx and daily Postgres dumps to S3. Application source is private; the public repo is the infrastructure write-up.</li>
+    </ul>
+  </div>
+</body>
+</html>

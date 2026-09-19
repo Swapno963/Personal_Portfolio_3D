@@ -4,6 +4,7 @@ const TrackedAnchor = ({
   source,
   project,
   demo = false,
+  resumeVersion,
   onClick,
   children,
   ...props
@@ -18,6 +19,7 @@ const TrackedAnchor = ({
           project,
           download: Boolean(props.download),
           demo,
+          resumeVersion,
         });
         onClick?.(event);
       }}

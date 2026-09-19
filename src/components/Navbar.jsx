@@ -62,8 +62,8 @@ const Navbar = () => {
           <li className="flex items-center gap-3">
             <ResumeLinks
               source="nav"
+              compact
               viewClassName="text-white text-[16px] font-semibold border border-[#915EFF] px-4 py-2 rounded-lg hover:bg-[#915EFF]"
-              downloadClassName="text-secondary hover:text-white text-[16px] font-medium"
             />
           </li>
         </ul>
@@ -99,8 +99,8 @@ const Navbar = () => {
               <li className="flex flex-col items-end gap-2">
                 <ResumeLinks
                   source="nav"
+                  compact
                   viewClassName="text-white font-medium text-[16px]"
-                  downloadClassName="text-secondary hover:text-white font-medium text-[16px]"
                 />
               </li>
             </ul>

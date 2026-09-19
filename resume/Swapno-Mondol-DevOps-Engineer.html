@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Swapno Mondol — DevOps Engineer</title>
+  <style>
+    @page { size: A4; margin: 12mm 13mm; }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: "Calibri", "Liberation Sans", "Segoe UI", Arial, sans-serif;
+      font-size: 10.2pt;
+      line-height: 1.3;
+      color: #1a1a1a;
+    }
+    h1 {
+      margin: 0;
+      font-size: 18.5pt;
+      letter-spacing: 0.04em;
+      font-weight: 700;
+      color: #12233d;
+    }
+    .role {
+      margin: 1px 0 5px;
+      font-size: 11pt;
+      color: #2b4c7e;
+      font-weight: 600;
+    }
+    .meta { color: #333; font-size: 9.4pt; }
+    .meta a { color: #1a365d; text-decoration: none; }
+    h2 {
+      margin: 10px 0 3px;
+      font-size: 10pt;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #12233d;
+      border-bottom: 1.3px solid #12233d;
+      padding-bottom: 1px;
+    }
+    p { margin: 0 0 3px; }
+    ul { margin: 1px 0 0 16px; padding: 0; }
+    li { margin: 0 0 3px; }
+    .job { margin-bottom: 7px; }
+    .job-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-weight: 700;
+    }
+    .job-sub {
+      font-style: italic;
+      color: #333;
+      margin-bottom: 1px;
+    }
+    .proj-title { font-weight: 700; margin-bottom: 1px; }
+    .muted { color: #333; font-weight: 400; }
+  </style>
+</head>
+<body>
+  <h1>SWAPNO MONDOL</h1>
+  <div class="role">DevOps Engineer</div>
+  <div class="meta">
+    Mirpur 2, Dhaka, Bangladesh · (+880) 01709112230 ·
+    <a href="mailto:swapno963@gmail.com">swapno963@gmail.com</a><br />
+    <a href="https://www.linkedin.com/in/swapno-mondol-me">LinkedIn</a> ·
+    <a href="https://github.com/Swapno963/Personal_Portfolio_3D">Portfolio</a> ·
+    <a href="https://github.com/Swapno963">GitHub</a> ·
+    <a href="https://chatapp.clustorflow.com">Query Mind (live)</a>
+  </div>
+
+  <h2>Summary</h2>
+  <p>
+    DevOps Engineer who takes services from application code through Docker, Terraform, GitHub Actions,
+    and production on AWS and on-premises Windows Server. Owns repeatable deploys, SHA-tagged images,
+    and Linux/Nginx operation. Debugs live systems and automates with Python.
+  </p>
+
+  <h2>Skills</h2>
+  <p><strong>Infrastructure:</strong> Docker, Docker Compose, AWS (EC2, VPC, S3, ECR, IAM), Terraform, GitHub Actions, Linux, Nginx</p>
+  <p><strong>Automation:</strong> Python, Git, cron / scheduled backups, production deploys</p>
+  <p><strong>Application context:</strong> Django, FastAPI, Go, PostgreSQL</p>
+  <p><strong>Additional:</strong> Redis, MongoDB, Kubernetes (familiar — not production)</p>
+
+  <h2>Experience</h2>
+  <div class="job">
+    <div class="job-head">
+      <span>Backend Developer — Meraki Innovation</span>
+      <span>Jan 2025 – Present</span>
+    </div>
+    <div class="job-sub">Mirpur 2, Bangladesh</div>
+    <ul>
+      <li>Owned CI/CD and Terraform-based production deploys across on-prem Windows Server and AWS so releases are repeatable rather than one-off copies.</li>
+      <li>Operated a live multi-tenant dashboard (multi-engine data access, file uploads, RBAC), including the release path those features depend on.</li>
+      <li>Ran production Docker Compose on EC2 for a client Education SaaS: Nginx in front, health checks, and daily PostgreSQL dumps to S3.</li>
+    </ul>
+  </div>
+  <div class="job">
+    <div class="job-head">
+      <span>Backend Developer — Cooking Station</span>
+      <span>Sep 2024 – Dec 2024</span>
+    </div>
+    <div class="job-sub">London, United Kingdom</div>
+    <ul>
+      <li>Maintained a live Django MVT product: bug fixes, new features, and a customized admin panel used in day-to-day operations.</li>
+      <li>Integrated third-party APIs and cron jobs so operational work did not sit inside a single request/response cycle; redesigned parts of the database schema under changing production requirements.</li>
+    </ul>
+  </div>
+
+  <h2>Projects</h2>
+  <div class="job">
+    <p class="proj-title">Education Institutions SaaS — production deploy path
+      <span class="muted">| Go/Gin, PostgreSQL, Redis/Asynq, Docker Compose, Terraform, GitHub Actions, AWS ·
+        <a href="https://github.com/Swapno963/SaaS-Education-Platform-Case-Study">Case study</a></span>
+    </p>
+    <ul>
+      <li>Provisioned VPC, subnets, security groups, and EC2 with Terraform. Compose on EC2 is the deploy unit (Nginx, API, workers, Postgres).</li>
+      <li>GitHub Actions runs format, vet, lint, tests, and image vulnerability scanning, then publishes SHA-tagged images to ECR. A manual deploy workflow rolls the compose stack. Secrets via GitHub Actions and EC2 env files; IAM roles split for CI/CD vs infrastructure.</li>
+      <li>Daily versioned Postgres dumps to S3 with a documented restore path. Observability beyond health checks is not shipped. Application source is private; the public repo is the infrastructure write-up.</li>
+    </ul>
+  </div>
+  <div class="job">
+    <p class="proj-title">ShopVerse — containerized FastAPI services
+      <span class="muted">| FastAPI, PostgreSQL, MongoDB, Docker ·
+        <a href="https://github.com/Swapno963/Microservice-with-FastAPI">GitHub</a></span>
+    </p>
+    <ul>
+      <li>Split user, product, inventory, and order into independently containerized FastAPI services with Dockerfiles and Compose. Lab-deployable backend, not a live storefront.</li>
+    </ul>
+  </div>
+  <div class="job">
+    <p class="proj-title">Query Mind — natural-language analytics over client databases
+      <span class="muted">| Django, PostgreSQL ·
+        <a href="https://chatapp.clustorflow.com">Live</a> ·
+        <a href="https://github.com/Swapno963/Query-Mind">GitHub</a></span>
+    </p>
+    <ul>
+      <li>Live Django service that generates validated, read-only SQL against a tenant-scoped client database, with an MCP client for restaurant tools. Included as a running product, not as a CI/CD case study.</li>
+    </ul>
+  </div>
+  <div class="job">
+    <p class="proj-title">ServeEasy — live restaurant product
+      <span class="muted">| Django, Docker ·
+        <a href="https://easyserve.clustorflow.com">Live</a></span>
+    </p>
+    <ul>
+      <li>Operated the public restaurant ordering site and its MCP endpoint as a running Django service. Not used here as an infrastructure write-up.</li>
+    </ul>
+  </div>
+</body>
+</html>

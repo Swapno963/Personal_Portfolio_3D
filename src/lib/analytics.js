@@ -2,7 +2,7 @@ import posthog from "posthog-js";
 
 import { profile } from "../constants";
 
-export const PORTFOLIO_VERSION = "v1";
+export const PORTFOLIO_VERSION = "v2";
 
 const rawPosthogKey = import.meta.env.VITE_PUBLIC_POSTHOG_KEY;
 export const POSTHOG_KEY =
@@ -60,9 +60,9 @@ export function trackPageView(page) {
   capture("page_view", { page });
 }
 
-export function trackResume(kind) {
+export function trackResume(kind, version) {
   capture(kind === "download" ? "resume_download" : "resume_view", {
-    resume_version: profile.resume_version,
+    resume_version: version || profile.resume_version,
   });
 }
 
@@ -86,11 +86,35 @@ function safeUrl(href) {
   }
 }
 
+function resumeEntries() {
+  if (Array.isArray(profile.resumes) && profile.resumes.length) {
+    return profile.resumes;
+  }
+  return [
+    {
+      href: profile.resume,
+      version: profile.resume_version,
+    },
+  ];
+}
+
 function isResumeHref(href) {
   const url = safeUrl(href);
-  const resume = safeUrl(profile.resume);
-  if (!url || !resume) return href === profile.resume;
-  return url.pathname === resume.pathname;
+  return resumeEntries().some((resume) => {
+    const resumeUrl = safeUrl(resume.href);
+    if (url && resumeUrl) return url.pathname === resumeUrl.pathname;
+    return href === resume.href;
+  });
+}
+
+function resumeVersionFromHref(href) {
+  const url = safeUrl(href);
+  const match = resumeEntries().find((resume) => {
+    const resumeUrl = safeUrl(resume.href);
+    if (url && resumeUrl) return url.pathname === resumeUrl.pathname;
+    return href === resume.href;
+  });
+  return match?.version || profile.resume_version;
 }
 
 function isMailto(href) {
@@ -131,6 +155,7 @@ export function handleOutboundClick({
   project,
   download = false,
   demo = false,
+  resumeVersion,
 }) {
   const fromContact = source === "contact";
 
@@ -140,7 +165,7 @@ export function handleOutboundClick({
   }
 
   if (isResumeHref(href)) {
-    trackResume(download ? "download" : "view");
+    trackResume(download ? "download" : "view", resumeVersion || resumeVersionFromHref(href));
     if (fromContact) capture("contact_click", { method: "resume" });
     return;
   }

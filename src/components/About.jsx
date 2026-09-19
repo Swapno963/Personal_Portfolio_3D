@@ -62,10 +62,11 @@ const About = () => {
       >
         Day to day I work in Python (Django/DRF, FastAPI) and Go (Gin), with
         PostgreSQL and Redis. QueryMind is the system I use to talk about
-        AI in production: LangGraph, allow-lists, and a policy layer so the
-        model cannot authorize writes. I can ship React/Next when a product
-        needs a UI. I am not positioning myself as a frontend or Three.js
-        specialist, and I do not list Kubernetes as a core skill.
+        AI in production: LangGraph, allow-lists, a SQL function denylist,
+        and an MCP client so restaurant writes never go through generated SQL.
+        Chat stays read-only. I can ship React/Next when a product needs a UI.
+        I am not positioning myself as a frontend or Three.js specialist, and
+        I do not list Kubernetes as a core skill.
       </motion.p>
 
       <div className="mt-20 flex flex-wrap gap-10">

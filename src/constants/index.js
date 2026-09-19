@@ -21,14 +21,30 @@ export const profile = {
   oneLiner:
     "Backend engineer building APIs, data systems, and controlled AI execution — then putting them on AWS with Docker, Terraform, and CI/CD.",
   pitch:
-    "Python and Go backends, PostgreSQL, Docker, AWS, and CI/CD. Recent work: QueryMind, a LangGraph NL-to-SQL product with org RBAC, multi-engine databases, and a policy layer so the LLM cannot authorize writes.",
-  chips: ["Go", "Python", "Django", "PostgreSQL", "LangGraph", "Docker", "AWS"],
+    "Python and Go backends, PostgreSQL, Docker, AWS, and CI/CD. Recent work: QueryMind, a LangGraph NL-to-SQL product with org RBAC, an MCP client for restaurant tools, and a policy layer so the LLM cannot authorize writes.",
+  chips: ["Python", "Django", "PostgreSQL", "LangGraph", "MCP", "Docker", "AWS"],
   email: "swapno963@gmail.com",
   github: "https://github.com/Swapno963",
   linkedin: "https://www.linkedin.com/in/swapno-mondol-me",
-  resume: "/Swapno-Mondol-Backend-DevOps.pdf",
-  resume_version: "backend_v2",
-  location: "Dhaka, Bangladesh",
+  resume: "/Swapno-Mondol-Backend-Engineer.pdf",
+  resume_version: "backend_v3",
+  resumes: [
+    {
+      id: "backend",
+      label: "Backend",
+      href: "/Swapno-Mondol-Backend-Engineer.pdf",
+      version: "backend_v3",
+      downloadName: "Swapno-Mondol-Backend-Engineer.pdf",
+    },
+    {
+      id: "devops",
+      label: "DevOps",
+      href: "/Swapno-Mondol-DevOps-Engineer.pdf",
+      version: "devops_v1",
+      downloadName: "Swapno-Mondol-DevOps-Engineer.pdf",
+    },
+  ],
+  location: "Mirpur 2, Dhaka, Bangladesh",
 };
 
 export const navLinks = [
@@ -73,7 +89,7 @@ const skillGroups = [
   {
     title: "Backend",
     level: "Strong",
-    items: ["Python (Django, DRF, FastAPI)", "Go (Gin)", "REST APIs", "AuthN/AuthZ", "LangGraph"],
+    items: ["Python (Django, DRF, FastAPI)", "Go (Gin)", "REST APIs", "AuthN/AuthZ", "LangGraph / MCP client"],
   },
   {
     title: "Databases",
@@ -104,6 +120,7 @@ const skillGroups = [
       "Polyglot persistence",
       "Multi-tenant data models",
       "Policy-gated AI execution (MCP vs SQL)",
+      "SQL allow-lists and function denylist",
     ],
   },
   {
@@ -278,9 +295,9 @@ const projects = [
     sourceStatus: "public",
     problem:
       "People need answers from a client database in plain English. An LLM cannot be allowed to run arbitrary SQL against production data.",
-    role: "Backend: LangGraph agent, org RBAC, multi-engine connections, MCP policy routing, read-only SQL.",
+    role: "Backend: LangGraph agent, org RBAC, MCP client, multi-engine connections, read-only SQL.",
     description:
-      "NL → SQL with schema inspection, sqlglot validation, org-scoped catalogs, and a deterministic policy layer: MCP for writes, SQL only for reads. Live demo and GitHub are the proof.",
+      "NL → SQL with schema inspection, sqlglot validation, a function denylist, and a deterministic policy layer: MCP for restaurant tools and writes, SQL only for reads. Chat never runs create/update/delete. Live demo and GitHub are the proof.",
     tags: [
       { name: "django", color: "blue-text-gradient" },
       { name: "langgraph", color: "green-text-gradient" },
@@ -306,18 +323,18 @@ const projects = [
     screenshots: [],
     caseStudy: {
       summary:
-        "QueryMind answers questions from a client database in plain English. The model may draft SQL or pick an MCP tool; a deterministic policy layer decides what is allowed. Writes never fall back to SQL.",
+        "QueryMind answers questions from a client database in plain English. The model may draft SQL or pick an MCP tool; a deterministic policy layer decides what is allowed. Chat never mutates. Writes never fall back to SQL.",
       problem:
         "Staff can describe the question they have. They should not need the schema, and an LLM must not be the authority for mutating production data.",
       users:
-        "A service-provider admin owns the organization, connects the shared catalog, and creates members. Members ask questions and only see their own conversations. Each org’s connections never run against another org’s database.",
+        "A service-provider admin owns the organization, connects the shared catalog, stores an optional encrypted MCP token, and creates members. Members ask questions and only see their own conversations. Each org’s connections never run against another org’s database.",
       constraints:
-        "Fail closed. Empty allow-list means no SQL. The SQL agent is SELECT-only regardless of what the model emits. CREATE/UPDATE/DELETE/business actions require a matching MCP tool. Capability matching uses the tool JSON schema, not the tool name alone.",
+        "Fail closed. Empty allow-list means no SQL. The SQL agent is SELECT-only regardless of what the model emits. Chat denies create/update/delete. API/MCP writes require a matching tool and a confirmation retry. Capability matching uses the tool JSON schema, not the first listed name.",
       architecture: [
-        "QueryMind’s own database: users, organizations, memberships, workspaces, conversations, hashed API keys.",
+        "QueryMind’s own database: users, organizations, memberships, workspaces, conversations, hashed API keys, encrypted MCP token.",
         "Client database is separate. Admins connect PostgreSQL, MySQL, Oracle, or SQL Server with encrypted credentials and an allow-list of tables and columns.",
         "LangGraph: classify operation → policy → MCP capability match → either MCP execute or the existing SQL planner/schema/generate/validate/explain/critic/execute path.",
-        "READ may use MCP when a tool can satisfy the request; otherwise the read-only SQL agent. Mutations require MCP or they are denied.",
+        "READ may use MCP when a tool can satisfy the request; otherwise the read-only SQL agent. Mutations require MCP on the API surface or they are denied.",
       ],
       decisions: [
         {
@@ -326,39 +343,43 @@ const projects = [
         },
         {
           title: "Policy is code, not a prompt",
-          body: "The LLM extracts structured intent. A Python policy table decides MCP vs SQL. There is no graph edge from a failed MCP write to SQL generation.",
+          body: "The LLM extracts structured intent. A Python policy table decides MCP vs SQL. There is no graph edge from a failed MCP write to SQL generation. Chat is read-only even if a write tool exists.",
+        },
+        {
+          title: "Scored tool match, not first-match",
+          body: "ServeEasy lists list_orders before get_order. Scoring prefers get_* when the user supplied an id, list_* for collections, and mark_order_paid for payment wording. A specific tool with missing args clarifies instead of silently calling list_*.",
         },
         {
           title: "Generate → validate → execute for reads",
-          body: "The model drafts SQL. sqlglot parses it in the engine dialect. Only a single SELECT is allowed. Tables and columns must be on the allow-list. Normalized SQL is what runs — not the raw model string.",
+          body: "The model drafts SQL. sqlglot parses it in the engine dialect. Only a single SELECT is allowed. Tables and columns must be on the allow-list. Dangerous functions (pg_sleep, dblink, lo_import, …) are rejected. Normalized SQL is what runs — not the raw model string. Postgres SET TRANSACTION READ ONLY failures abort the execute.",
         },
         {
           title: "MCP as the business-logic boundary",
-          body: "Org admins configure an MCP HTTP server URL. Tools are listed at request time. Matching requires operation, resource, and parameter coverage from inputSchema. Aggregation/join questions that a get_order tool cannot express fall back to SQL only when the operation is READ.",
+          body: "Org admins save the ServeEasy /mcp URL and an optional encrypted restaurant token for chat reads. API clients can still send X-MCP-Authorization; the header wins. Tools are listed at request time. Writes retry once with HMAC confirmed + confirmation_id. The LLM cannot supply those fields.",
         },
         {
           title: "Org admin vs member",
-          body: "Signup creates an organization administrator. Admins manage users, the shared workspace, and the MCP URL. Conversations stay private to the author. Deactivated members cannot use existing API keys.",
+          body: "Signup is credentials only; product choice happens in onboarding. Admins manage users, the shared workspace, the MCP URL, and the stored token. Conversations stay private to the author. Deactivated members cannot use existing API keys.",
         },
       ],
       implementation: [
         "Schema discovery per engine, then filtering to selected tables before the prompt.",
-        "ReadOnlySQLExecutor: parse, permission check, engine-specific read-only session, execute or stream.",
-        "Classifier + policy + capability nodes in front of the existing SQL subgraph — the SQL agent was not rewritten.",
+        "ReadOnlySQLExecutor: parse, permission check, function denylist, engine-specific read-only session, execute or stream.",
+        "Classifier + policy + scored capability nodes in front of the existing SQL subgraph — the SQL agent was not rewritten.",
         "Chat path streams status (classify, policy, MCP or SQL steps) over SSE so the user sees the safety steps, not a magic box.",
       ],
       challenges: [
         "Prompting the whole schema does not survive a real client database. Table selection happens first, then validation, then read-only execute.",
-        "MCP tool schemas are often thin. Conservative matching over-uses SQL for reads (acceptable) and over-denies writes (correct).",
+        "ASGI tools used to advertise empty required lists because of Python defaults. QueryMind infers identity fields; ServeEasy now overlays catalog required on tools/list.",
         "EXPLAIN JSON is PostgreSQL/MySQL only. Oracle and SQL Server skip that step; AST validation still applies.",
       ],
       deploy: [
         "Runnable as a Django app with a QueryMind database plus a client database connection.",
-        "No production IP, demo password, or shared customer dataset is published here.",
+        "Live: chatapp.clustorflow.com. No demo password or shared customer dataset is published here.",
       ],
       results: [
         "A backend that treats SQL generation as a privileged compiler pass, not as ‘let the model talk to Postgres’.",
-        "Unit tests cover RBAC isolation, engine dialect validation, reject-without-allow-list, reject writes/DDL, READ→MCP vs READ→SQL, and deny-on-unmatched mutations.",
+        "Unit tests cover RBAC isolation, engine dialect validation, denylist, reject-without-allow-list, reject writes/DDL, READ→MCP vs READ→SQL, confirmation retry, and deny-on-unmatched mutations.",
       ],
       lessons: [
         "Safety is the product. If validation or policy is optional, this is just a text-to-SQL toy.",
@@ -460,26 +481,26 @@ const projects = [
     },
   },
   {
-    name: "Restaurant QR Ordering SaaS",
+    name: "ServeEasy",
     id: "restaurant_qr",
     slug: "restaurant-qr",
     project_category: "saas",
-    hasCaseStudy: false,
+    hasCaseStudy: true,
     sourceStatus: "request",
     problem:
-      "Each restaurant is a tenant. A QR code on a table should only ever create orders inside that restaurant’s menu, staff, and branch — never leak across accounts.",
-    role: "Backend: Django/DRF multi-tenant data model and ordering constraints.",
+      "Each restaurant is a tenant. A QR code on a table should only ever create orders inside that restaurant’s menu, staff, and branch — never leak across accounts. Staff tools must be role-scoped, not ‘every waiter sees every admin action’.",
+    role: "Backend: Django/DRF multi-tenant ordering plus an MCP server QueryMind can call.",
     description:
-      "Multi-tenant restaurant QR ordering: tenant-scoped models, staff roles, and order isolation in Django/DRF. The interesting part is the data model, not the UI. Source on request.",
+      "Multi-tenant restaurant QR ordering with staff roles, and an MCP server at /mcp: catalog required fields, HMAC write confirmation, JWT restaurant scope. Live: easyserve.clustorflow.com. Source on request.",
     tags: [
       { name: "django", color: "blue-text-gradient" },
-      { name: "drf", color: "green-text-gradient" },
+      { name: "mcp", color: "green-text-gradient" },
       { name: "multi-tenant", color: "pink-text-gradient" },
     ],
     image: restaurantFlow,
     source_code_link: null,
     live_link: "https://easyserve.clustorflow.com",
-    stack: ["Django", "DRF", "PostgreSQL"],
+    stack: ["Django", "DRF", "PostgreSQL", "MCP (streamable HTTP)", "JWT"],
     diagrams: [
       {
         src: restaurantFlow,
@@ -487,6 +508,56 @@ const projects = [
       },
     ],
     screenshots: [],
+    caseStudy: {
+      summary:
+        "ServeEasy is a multi-tenant restaurant product: QR ordering for diners, role-scoped staff tools, and an MCP server so QueryMind can list and call those tools without inventing them.",
+      problem:
+        "A waiter, chef, cashier, and owner do not share one permission set. Cross-restaurant leakage is a product failure, not a nice-to-have.",
+      users:
+        "Diners scan a table QR. Waiters, chefs, cashiers, and owners use staff tools. QueryMind is an MCP client, not a second ACL.",
+      constraints:
+        "Restaurant JWT is the tenant and the role. QueryMind must not add a second permission table or advertise tools the role cannot call.",
+      architecture: [
+        "Django/DRF app: restaurants, menus, tables, orders, staff, payments.",
+        "MCP at /mcp (streamable HTTP) with JWT auth. tools/list is filtered by role; catalog required is overlaid on ASGI schemas.",
+        "Writes require HMAC confirmed + confirmation_id (10 minute TTL). QueryMind retries that handshake once on the API surface.",
+      ],
+      decisions: [
+        {
+          title: "JWT is the ACL",
+          body: "user.restaurant_id and role on the token scope every tool. QueryMind forwards Authorization; it does not filter the catalog a second time.",
+        },
+        {
+          title: "Catalog required on ASGI list",
+          body: "Python defaults used to make inputSchema.required empty. Overlaying TOOL_SPECS.required means get_order actually requires order_id.",
+        },
+        {
+          title: "Confirmation stays HMAC",
+          body: "Local execute_tool still checks the token. QueryMind-routed writes complete in one graph run by sending the confirmation once. The LLM cannot bind confirmed / confirmation_id.",
+        },
+      ],
+      implementation: [
+        "Role-filtered tool names: waiter reads, chef status, cashier mark paid, owner menu writes.",
+        "Missing identity args return needs_parameters, not a guessed row.",
+        "Replay of the same confirmation_id returns the saved result.",
+      ],
+      challenges: [
+        "Thin tool schemas made QueryMind pick list_orders for ‘show order 123’. Scored matching plus catalog required closed that gap.",
+        "Chat must stay read-only even when a write tool is on the server.",
+      ],
+      deploy: [
+        "Live at easyserve.clustorflow.com. MCP path is /mcp.",
+        "Application source is private; this page is the public write-up.",
+      ],
+      results: [
+        "A restaurant product QueryMind can call without QueryMind inventing tools.",
+        "In-process tests cover role-filtered tools/list, catalog required, and HMAC confirmation.",
+      ],
+      lessons: [
+        "Do not advertise every tool and return 403. Filter the catalog.",
+        "Do not let the model ‘know’ it must not call admin tools. The server is the ACL.",
+      ],
+    },
   },
 ];
 

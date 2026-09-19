@@ -31,7 +31,12 @@ Open [http://localhost:5173](http://localhost:5173).
 - `/projects/querymind`
 - `/projects/shopverse`
 
-Resume PDF: `public/Swapno-Mondol-Backend-DevOps.pdf` (source HTML: `resume/Swapno-Mondol-Backend-DevOps.html`)
+Resume PDFs:
+
+- `public/Swapno-Mondol-Backend-Engineer.pdf` (source: `resume/Swapno-Mondol-Backend-Engineer.html`)
+- `public/Swapno-Mondol-DevOps-Engineer.pdf` (source: `resume/Swapno-Mondol-DevOps-Engineer.html`)
+
+Print both with `resume/print.sh` after editing the HTML.
 
 ## Links
 
