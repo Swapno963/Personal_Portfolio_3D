@@ -9,6 +9,8 @@ import {
   querymindFlow,
   shopverseArch,
   restaurantFlow,
+  magicstreamArch,
+  blogifyArch,
   shopverseDocker,
   shopverseInventory,
   shopverseUserApi,
@@ -21,7 +23,7 @@ export const profile = {
   oneLiner:
     "Backend engineer building APIs, data systems, and controlled AI execution — then putting them on AWS with Docker, Terraform, and CI/CD.",
   pitch:
-    "Python and Go backends, PostgreSQL, Docker, AWS, and CI/CD. Recent work: QueryMind, a LangGraph NL-to-SQL product with org RBAC, an MCP client for restaurant tools, and a policy layer so the LLM cannot authorize writes.",
+    "Python and Go backends, PostgreSQL, Docker, AWS, and CI/CD. Recent work: QueryMind (LangGraph NL-to-SQL with fail-closed validation), ServeEasy (QR ordering + MCP on its own EC2), and MagicStream (Go/Gin movie catalog with cookie JWT).",
   chips: ["Python", "Django", "PostgreSQL", "LangGraph", "MCP", "Docker", "AWS"],
   email: "swapno963@gmail.com",
   github: "https://github.com/Swapno963",
@@ -167,22 +169,22 @@ const productionProofs = [
   {
     title: "Docker Compose as the unit of deploy",
     detail:
-      "Education SaaS and ShopVerse run as compose stacks (API, workers, Postgres, Redis) so local and EC2 look the same.",
+      "Education SaaS, ServeEasy, QueryMind, and ShopVerse run as compose stacks so local and EC2 look the same.",
   },
   {
     title: "GitHub Actions before images move",
     detail:
-      "Education pipeline: format, vet, lint, tests, security scan, then publish SHA-tagged images to ECR.",
+      "Education and ServeEasy: format/test, then publish SHA-tagged images to ECR (ServeEasy uses api-* / web-* tags on one repo).",
   },
   {
     title: "Terraform for the box the app sits on",
     detail:
-      "VPC, subnets, security groups, and EC2 for the education stack — infrastructure is code, not a console click-path.",
+      "VPC, subnets, security groups, and EC2 for the education and QueryMind stacks — infrastructure is code, not a console click-path.",
   },
   {
-    title: "Nginx + workers + backups",
+    title: "Nginx + dedicated hosts",
     detail:
-      "Reverse proxy in front of Next.js and the Go API, Redis/Asynq off the request path, Postgres dumps to object storage.",
+      "QueryMind and ServeEasy each own an EC2 + nginx path (chatapp vs easyserve). Workers and backups stay off the request path where the product needs them.",
   },
 ];
 
@@ -295,9 +297,9 @@ const projects = [
     sourceStatus: "public",
     problem:
       "People need answers from a client database in plain English. An LLM cannot be allowed to run arbitrary SQL against production data.",
-    role: "Backend: LangGraph agent, org RBAC, MCP client, multi-engine connections, read-only SQL.",
+    role: "Backend: LangGraph agent, org RBAC, MCP client, multi-engine connections, read-only SQL, Docker/Terraform deploy.",
     description:
-      "NL → SQL with schema inspection, sqlglot validation, a function denylist, and a deterministic policy layer: MCP for restaurant tools and writes, SQL only for reads. Chat never runs create/update/delete. Live demo and GitHub are the proof.",
+      "NL → SQL with schema inspection, sqlglot validation, no SELECT *, statement timeout, and a row cap. Deterministic policy: MCP for restaurant tools/writes, SQL only for reads. Chat never runs create/update/delete. Live demo and GitHub are the proof.",
     tags: [
       { name: "django", color: "blue-text-gradient" },
       { name: "langgraph", color: "green-text-gradient" },
@@ -313,6 +315,9 @@ const projects = [
       "sqlglot",
       "MCP client",
       "SSE streaming",
+      "Docker / Nginx",
+      "GitHub Actions",
+      "Terraform",
     ],
     diagrams: [
       {
@@ -323,18 +328,19 @@ const projects = [
     screenshots: [],
     caseStudy: {
       summary:
-        "QueryMind answers questions from a client database in plain English. The model may draft SQL or pick an MCP tool; a deterministic policy layer decides what is allowed. Chat never mutates. Writes never fall back to SQL.",
+        "QueryMind answers questions from a client database in plain English. The model may draft SQL or pick an MCP tool; a deterministic policy layer decides what is allowed. Chat never mutates. Writes never fall back to SQL. Client business rows stay in the client DB — QueryMind only stores users, orgs, connections, schema cache, and history.",
       problem:
         "Staff can describe the question they have. They should not need the schema, and an LLM must not be the authority for mutating production data.",
       users:
         "A service-provider admin owns the organization, connects the shared catalog, stores an optional encrypted MCP token, and creates members. Members ask questions and only see their own conversations. Each org’s connections never run against another org’s database.",
       constraints:
-        "Fail closed. Empty allow-list means no SQL. The SQL agent is SELECT-only regardless of what the model emits. Chat denies create/update/delete. API/MCP writes require a matching tool and a confirmation retry. Capability matching uses the tool JSON schema, not the first listed name.",
+        "Fail closed. Empty allow-list means no SQL. SELECT-only, no SELECT *, single statement, read-only transactions, statement timeout, and a row cap — regardless of what the model emits. Chat denies create/update/delete. API/MCP writes require a matching tool and a confirmation retry. Capability matching uses the tool JSON schema, not the first listed name.",
       architecture: [
         "QueryMind’s own database: users, organizations, memberships, workspaces, conversations, hashed API keys, encrypted MCP token.",
         "Client database is separate. Admins connect PostgreSQL, MySQL, Oracle, or SQL Server with encrypted credentials and an allow-list of tables and columns.",
-        "LangGraph: classify operation → policy → MCP capability match → either MCP execute or the existing SQL planner/schema/generate/validate/explain/critic/execute path.",
+        "LangGraph: classify operation → policy → MCP capability match → either MCP execute or the SQL planner/schema/generate/validate/explain/critic/execute path.",
         "READ may use MCP when a tool can satisfy the request; otherwise the read-only SQL agent. Mutations require MCP on the API surface or they are denied.",
+        "Packaging: Docker, Nginx, GitHub Actions, and Terraform on the LangGraph deploy path (dedicated EC2 at chatapp.clustorflow.com).",
       ],
       decisions: [
         {
@@ -351,7 +357,7 @@ const projects = [
         },
         {
           title: "Generate → validate → execute for reads",
-          body: "The model drafts SQL. sqlglot parses it in the engine dialect. Only a single SELECT is allowed. Tables and columns must be on the allow-list. Dangerous functions (pg_sleep, dblink, lo_import, …) are rejected. Normalized SQL is what runs — not the raw model string. Postgres SET TRANSACTION READ ONLY failures abort the execute.",
+          body: "The model drafts SQL. sqlglot parses it in the engine dialect. Only a single SELECT is allowed — no SELECT *. Tables and columns must be on the allow-list. Dangerous functions (pg_sleep, dblink, lo_import, …) are rejected. Normalized SQL is what runs — not the raw model string. Postgres SET TRANSACTION READ ONLY failures abort the execute.",
         },
         {
           title: "MCP as the business-logic boundary",
@@ -364,7 +370,7 @@ const projects = [
       ],
       implementation: [
         "Schema discovery per engine, then filtering to selected tables before the prompt.",
-        "ReadOnlySQLExecutor: parse, permission check, function denylist, engine-specific read-only session, execute or stream.",
+        "ReadOnlySQLExecutor: parse, permission check, function denylist, engine-specific read-only session, timeout + row cap, execute or stream.",
         "Classifier + policy + scored capability nodes in front of the existing SQL subgraph — the SQL agent was not rewritten.",
         "Chat path streams status (classify, policy, MCP or SQL steps) over SSE so the user sees the safety steps, not a magic box.",
       ],
@@ -374,7 +380,7 @@ const projects = [
         "EXPLAIN JSON is PostgreSQL/MySQL only. Oracle and SQL Server skip that step; AST validation still applies.",
       ],
       deploy: [
-        "Runnable as a Django app with a QueryMind database plus a client database connection.",
+        "Docker + Nginx + GitHub Actions + Terraform on a dedicated EC2 (separate from ServeEasy).",
         "Live: chatapp.clustorflow.com. No demo password or shared customer dataset is published here.",
       ],
       results: [
@@ -399,7 +405,7 @@ const projects = [
       "Inventory is a scarce resource. A generic e-commerce clone that updates stock with a naive UPDATE will oversell the moment two orders land together.",
     role: "Backend: FastAPI services, polyglot persistence, inventory transactions.",
     description:
-      "FastAPI microservices with Postgres-only inventory, row locks, and pending orders when reservation fails. A production-shaped learning system — not a live marketplace. Outbox/saga is an explicit next step.",
+      "Four FastAPI services (user, product, inventory, order) with Postgres-only inventory, SELECT FOR UPDATE locks, and pending orders when reservation fails. Lab system — no live storefront, no payment service, no saga/outbox yet.",
     tags: [
       { name: "fastapi", color: "blue-text-gradient" },
       { name: "postgresql", color: "green-text-gradient" },
@@ -408,7 +414,7 @@ const projects = [
     image: shopverseArch,
     source_code_link: "https://github.com/Swapno963/Microservice-with-FastAPI",
     live_link: null,
-    stack: ["FastAPI", "PostgreSQL", "MongoDB", "Docker Compose", "JWT"],
+    stack: ["FastAPI", "PostgreSQL", "MongoDB", "Docker Compose", "JWT", "Nginx (optional)"],
     diagrams: [
       {
         src: shopverseArch,
@@ -431,7 +437,7 @@ const projects = [
     ],
     caseStudy: {
       summary:
-        "ShopVerse is a FastAPI microservice backend I use to practice the parts of commerce that actually hurt: inventory correctness, service boundaries, and what you skip on purpose. It is not a live storefront.",
+        "ShopVerse is a FastAPI microservice backend I use to practice the parts of commerce that actually hurt: inventory correctness, service boundaries, and what you skip on purpose. It is not a live storefront. Payment and a storefront UI are intentionally absent.",
       problem:
         "User, catalog, stock, and orders have different consistency needs. Treating them as one CRUD database hides the failure modes.",
       users:
@@ -440,8 +446,8 @@ const projects = [
         "Synchronous HTTP between services so the system stays debuggable. Event-driven compensation is designed, not shipped.",
       architecture: [
         "User, product, and order services store documents in MongoDB.",
-        "Inventory is the only service on PostgreSQL — ACID, row locks, transactional history.",
-        "Each service has its own Docker image. Compose brings the mesh up for local and lab deploys.",
+        "Inventory is the only service on PostgreSQL — ACID, row locks (SELECT FOR UPDATE), transactional history.",
+        "Each service has its own multi-stage Docker image. Compose brings the mesh up for local and lab deploys.",
       ],
       decisions: [
         {
@@ -458,7 +464,7 @@ const projects = [
         },
       ],
       implementation: [
-        "JWT auth on the user service.",
+        "JWT auth on the user service (register, login, refresh, profile, addresses).",
         "Inventory: create, reserve, release, adjust (transactional); low-stock and history (read).",
         "Order create checks availability, reserves, then stores a pending order.",
         "Cancel releases inventory when the order is still cancellable.",
@@ -486,21 +492,31 @@ const projects = [
     slug: "restaurant-qr",
     project_category: "saas",
     hasCaseStudy: true,
-    sourceStatus: "request",
+    sourceStatus: "public",
     problem:
       "Each restaurant is a tenant. A QR code on a table should only ever create orders inside that restaurant’s menu, staff, and branch — never leak across accounts. Staff tools must be role-scoped, not ‘every waiter sees every admin action’.",
-    role: "Backend: Django/DRF multi-tenant ordering plus an MCP server QueryMind can call.",
+    role: "Backend + deploy: Django/DRF multi-tenant ordering, MCP server, Next.js UI, dedicated EC2/ECR pipeline.",
     description:
-      "Multi-tenant restaurant QR ordering with staff roles, and an MCP server at /mcp: catalog required fields, HMAC write confirmation, JWT restaurant scope. Live: easyserve.clustorflow.com. Source on request.",
+      "Multi-tenant QR ordering with staff roles, streamable MCP at /mcp (HMAC writes, JWT restaurant scope), and a dedicated EC2 stack (nginx → Django API + Next.js). Live: easyserve.clustorflow.com. Integrates QueryMind for staff assistant flows.",
     tags: [
       { name: "django", color: "blue-text-gradient" },
       { name: "mcp", color: "green-text-gradient" },
       { name: "multi-tenant", color: "pink-text-gradient" },
     ],
     image: restaurantFlow,
-    source_code_link: null,
+    source_code_link: "https://github.com/Swapno963/Resturent-Backend",
     live_link: "https://easyserve.clustorflow.com",
-    stack: ["Django", "DRF", "PostgreSQL", "MCP (streamable HTTP)", "JWT"],
+    stack: [
+      "Django / DRF",
+      "Next.js",
+      "PostgreSQL",
+      "MCP (streamable HTTP)",
+      "JWT",
+      "Docker Compose",
+      "Nginx",
+      "AWS EC2 / ECR",
+      "GitHub Actions",
+    ],
     diagrams: [
       {
         src: restaurantFlow,
@@ -510,22 +526,28 @@ const projects = [
     screenshots: [],
     caseStudy: {
       summary:
-        "ServeEasy is a multi-tenant restaurant product: QR ordering for diners, role-scoped staff tools, and an MCP server so QueryMind can list and call those tools without inventing them.",
+        "ServeEasy is a multi-tenant restaurant product: QR ordering for diners, role-scoped staff tools, an MCP server so QueryMind can list and call those tools, and its own EC2 compose stack — not shared with QueryMind’s host.",
       problem:
         "A waiter, chef, cashier, and owner do not share one permission set. Cross-restaurant leakage is a product failure, not a nice-to-have.",
       users:
         "Diners scan a table QR. Waiters, chefs, cashiers, and owners use staff tools. QueryMind is an MCP client, not a second ACL.",
       constraints:
-        "Restaurant JWT is the tenant and the role. QueryMind must not add a second permission table or advertise tools the role cannot call.",
+        "Restaurant JWT is the tenant and the role. QueryMind must not add a second permission table or advertise tools the role cannot call. HTTP :80 is a private pilot; TLS before real guest traffic.",
       architecture: [
-        "Django/DRF app: restaurants, menus, tables, orders, staff, payments.",
-        "MCP at /mcp (streamable HTTP) with JWT auth. tools/list is filtered by role; catalog required is overlaid on ASGI schemas.",
+        "Django/DRF API: restaurants, menus, tables, orders, staff, payments (trial + manual billing; QueryMind quota enforced in API).",
+        "Next.js UI on the same origin via nginx (/ → web:3000, /api /mcp /health → api:8000).",
+        "MCP at /mcp (streamable HTTP, ASGI/Gunicorn+Uvicorn). tools/list filtered by role; catalog required overlaid on ASGI schemas.",
         "Writes require HMAC confirmed + confirmation_id (10 minute TTL). QueryMind retries that handshake once on the API surface.",
+        "Bidirectional integration: ServeEasy calls QueryMind messages API; QueryMind org mcp_server_url points at ServeEasy /mcp.",
       ],
       decisions: [
         {
           title: "JWT is the ACL",
           body: "user.restaurant_id and role on the token scope every tool. QueryMind forwards Authorization; it does not filter the catalog a second time.",
+        },
+        {
+          title: "Dedicated EC2, not QueryMind’s box",
+          body: "/opt/serveeasy, compose project serveeasy, ECR repo serve-easy with api-* and web-* tags. Different public IP and DNS from chatapp.clustorflow.com.",
         },
         {
           title: "Catalog required on ASGI list",
@@ -540,22 +562,202 @@ const projects = [
         "Role-filtered tool names: waiter reads, chef status, cashier mark paid, owner menu writes.",
         "Missing identity args return needs_parameters, not a guessed row.",
         "Replay of the same confirmation_id returns the saved result.",
+        "GHA publish workflows for API and web; deploy workflow pulls tagged images onto the ServeEasy host.",
       ],
       challenges: [
         "Thin tool schemas made QueryMind pick list_orders for ‘show order 123’. Scored matching plus catalog required closed that gap.",
         "Chat must stay read-only even when a write tool is on the server.",
+        "WSGI runserver is not enough for streamable MCP — ASGI is required for QueryMind as a client.",
       ],
       deploy: [
-        "Live at easyserve.clustorflow.com. MCP path is /mcp.",
-        "Application source is private; this page is the public write-up.",
+        "Live at easyserve.clustorflow.com. MCP path is /mcp. Same-origin API at /api/.",
+        "Frontend: github.com/Swapno963/Resturent-Frontend. Backend: github.com/Swapno963/Resturent-Backend.",
       ],
       results: [
         "A restaurant product QueryMind can call without QueryMind inventing tools.",
         "In-process tests cover role-filtered tools/list, catalog required, and HMAC confirmation.",
+        "Repeatable publish → ECR → EC2 deploy path separate from QueryMind.",
       ],
       lessons: [
         "Do not advertise every tool and return 403. Filter the catalog.",
         "Do not let the model ‘know’ it must not call admin tools. The server is the ACL.",
+        "Two products on two hosts beats one shared nginx that forgets which compose project owns :80.",
+      ],
+    },
+  },
+  {
+    name: "MagicStream",
+    id: "magicstream",
+    slug: "magicstream",
+    project_category: "backend",
+    hasCaseStudy: true,
+    sourceStatus: "public",
+    problem:
+      "Build a portfolio-grade movie catalog in Go without pretending to be a video CDN — auth, recommendations, and admin review ranking still have to be honest.",
+    role: "Backend: Go/Gin REST API, MongoDB, JWT cookie auth, optional OpenAI ranking with fallback.",
+    description:
+      "Same-origin Go API + MongoDB + static UI. HTTP-only JWT cookies, paginated catalog, YouTube trailers after sign-in, genre-overlap recommendations, and admin review ranking with an OpenAI side path that falls back to the admin selection.",
+    tags: [
+      { name: "go", color: "blue-text-gradient" },
+      { name: "mongodb", color: "green-text-gradient" },
+      { name: "jwt", color: "pink-text-gradient" },
+    ],
+    image: magicstreamArch,
+    source_code_link: "https://github.com/Swapno963/Movie-Streaming-App-with-Go",
+    live_link: null,
+    stack: [
+      "Go / Gin",
+      "MongoDB 7",
+      "JWT (HTTP-only cookies)",
+      "LangChainGo / OpenAI (optional)",
+      "Docker Compose",
+      "GitHub Actions",
+    ],
+    diagrams: [
+      {
+        src: magicstreamArch,
+        alt: "MagicStream architecture: static frontend to Gin API to MongoDB, with optional OpenAI ranking fallback.",
+      },
+    ],
+    screenshots: [],
+    caseStudy: {
+      summary:
+        "MagicStream is a same-origin movie catalog MVP: Go REST API, MongoDB, cookie JWT auth, and a small static frontend. Trailers are YouTube embeds. OpenAI can classify a staff review; missing or invalid model output stores the admin-selected ranking instead.",
+      problem:
+        "Need a clean Go backend story: layered packages, real auth tiers, and AI as an optional side path — not a Netflix clone with fake streaming claims.",
+      users:
+        "Public visitors browse the catalog. Signed-in users open detail/trailers and get genre-overlap recommendations. Admins add movies and update staff reviews.",
+      constraints:
+        "No Redis, queues, or Kubernetes. Authorization is middleware, not a hidden UI link. GET /movies returns a paginated object (frontend still accepts a legacy array).",
+      architecture: [
+        "Browser → static UI on :8080 → Gin API (same origin) → MongoDB.",
+        "Optional OpenAI ranking path with allow-list validation and admin fallback.",
+        "Packages: routes, controllers, middleware, ranking, database — no extra framework.",
+      ],
+      decisions: [
+        {
+          title: "HTTP-only cookies over localStorage tokens",
+          body: "Access (24h) and refresh (7d) cookies. Refresh must match the token stored on the user document so logout or rotation invalidates the cookie even if the JWT has not expired.",
+        },
+        {
+          title: "AI as a side path",
+          body: "Core catalog, auth, and playback never call OpenAI. Only admin review updates try classification; garbage or timeout falls back to the admin ranking.",
+        },
+        {
+          title: "Auth tiers in middleware",
+          body: "Public catalog/auth/health. Authenticated detail and recommendations. Admin writes. Hiding an Add Movie button is not a security control.",
+        },
+      ],
+      implementation: [
+        "Register/login/logout/refresh and GET /me with bcrypt passwords.",
+        "Paginated catalog with title search and genre filter.",
+        "Authenticated movie detail + YouTube trailer; deterministic ‘For you’ recommendations.",
+        "Admin add movie and update review; /health and /ready (Mongo ping).",
+        "Docker Compose for API + Mongo; GHA format, vet, test, build.",
+      ],
+      challenges: [
+        "Breaking change on GET /movies pagination — documented and dual-supported in the bundled frontend.",
+        "First account matching ADMIN_EMAIL becomes ADMIN; everyone else is USER.",
+      ],
+      deploy: [
+        "docker compose up --build → http://localhost:8080.",
+        "Public GitHub: Movie-Streaming-App-with-Go. No production host claimed.",
+      ],
+      results: [
+        "A walkable Go API with cookie auth, readiness checks, and an honest AI boundary.",
+        "CI keeps gofmt, vet, test, and build on the critical path.",
+      ],
+      lessons: [
+        "Portfolio MVPs should state what they are not (video CDN) as clearly as what they are.",
+        "Optional AI that can fail closed is safer than making playback depend on a model.",
+      ],
+    },
+  },
+  {
+    name: "Blogify",
+    id: "blogify",
+    slug: "blogify",
+    project_category: "fullstack",
+    hasCaseStudy: true,
+    sourceStatus: "public",
+    problem:
+      "A blogging product needs real auth, author-only writes, and social actions — not a tutorial CRUD dump with a fake ‘deployed’ badge.",
+    role: "Full-stack: Django/DRF API, React SPA, JWT client handling, Docker packaging.",
+    description:
+      "Full-stack blogging: Django REST (JWT, posts, search, likes, comments, favorites, paginated infinite scroll) plus a React SPA for feed, writing, and profiles. API packaged with Docker; frontend on Vercel.",
+    tags: [
+      { name: "django", color: "blue-text-gradient" },
+      { name: "react", color: "green-text-gradient" },
+      { name: "jwt", color: "pink-text-gradient" },
+    ],
+    image: blogifyArch,
+    source_code_link: "https://github.com/Swapno963/BlogiFy_Backend",
+    live_link: null,
+    stack: [
+      "Django / DRF",
+      "SimpleJWT",
+      "PostgreSQL",
+      "Gunicorn / Docker",
+      "React / Vite",
+      "React Router",
+      "Axios",
+    ],
+    diagrams: [
+      {
+        src: blogifyArch,
+        alt: "Blogify architecture: React SPA talking to a Django REST API backed by PostgreSQL.",
+      },
+    ],
+    screenshots: [],
+    caseStudy: {
+      summary:
+        "Blogify is a personal blogging product: DRF API for auth and social posts, React SPA for the feed and editor. Author-only edit/delete, access + refresh tokens on the client, and Docker packaging for the API.",
+      problem:
+        "Need a complete SPA + API loop — register, write, scroll, comment, favorite — with permissions that match authorship, not ‘logged in can edit anything’.",
+      users:
+        "Readers browse and search publicly. Authors register, write, edit their own posts, and manage profile/avatar. Comments are public to read; write/delete requires login and ownership.",
+      constraints:
+        "Two repos (API + frontend). No shared demo credentials in docs — register your own account.",
+      architecture: [
+        "React SPA (Vite, React Router, Axios) → Django REST API → PostgreSQL.",
+        "JWT access + refresh on the client; private write route redirects to login.",
+        "API deployed historically on Railway/Render; frontend on Vercel.",
+      ],
+      decisions: [
+        {
+          title: "Author-only mutations",
+          body: "Edit and delete are scoped to the post author. Comments follow the same ownership rule for delete.",
+        },
+        {
+          title: "Pagination for infinite scroll",
+          body: "List endpoints return pages the SPA can append — not one giant dump of every post.",
+        },
+        {
+          title: "Separate frontend and backend repos",
+          body: "Deploy and iterate independently. Frontend: github.com/Swapno963/Blogify_Frontend.",
+        },
+      ],
+      implementation: [
+        "Register/login, profile/bio and avatar updates.",
+        "CRUD on own posts; search; most-liked; favorites.",
+        "Comments: public read; authenticated write/delete own.",
+        "Docker packaging for the API deploy path.",
+      ],
+      challenges: [
+        "Token refresh on the client has to stay silent on page navigation without leaking expired sessions into write routes.",
+        "Media/avatar URLs must resolve against the deployed API origin, not localhost assumptions.",
+      ],
+      deploy: [
+        "API: Docker + Gunicorn (Railway/Render historically). Frontend: Vercel.",
+        "No public demo password. Clone and register locally or against a deployed API.",
+      ],
+      results: [
+        "A complete blogging loop I can demo end-to-end: auth, feed, write, social actions.",
+        "Public backend and frontend repos that match the case study.",
+      ],
+      lessons: [
+        "Full-stack portfolio work is strongest when permissions and deploy story are explicit.",
+        "Infinite scroll without real pagination is just a fake.",
       ],
     },
   },

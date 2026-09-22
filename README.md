@@ -30,6 +30,9 @@ Open [http://localhost:5173](http://localhost:5173).
 - `/projects/education-saas`
 - `/projects/querymind`
 - `/projects/shopverse`
+- `/projects/restaurant-qr`
+- `/projects/magicstream`
+- `/projects/blogify`
 
 Resume PDFs:
 

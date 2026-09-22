@@ -14,6 +14,8 @@ import educationArch from "./projects/education-arch.svg";
 import querymindFlow from "./projects/querymind-flow.svg";
 import shopverseArch from "./projects/shopverse-arch.svg";
 import restaurantFlow from "./projects/restaurant-flow.svg";
+import magicstreamArch from "./projects/magicstream-arch.svg";
+import blogifyArch from "./projects/blogify-arch.svg";
 import shopverseDocker from "./projects/shopverse-docker.png";
 import shopverseInventory from "./projects/shopverse-inventory.png";
 import shopverseUserApi from "./projects/shopverse-user-api.png";
@@ -33,6 +35,8 @@ export {
   querymindFlow,
   shopverseArch,
   restaurantFlow,
+  magicstreamArch,
+  blogifyArch,
   shopverseDocker,
   shopverseInventory,
   shopverseUserApi,

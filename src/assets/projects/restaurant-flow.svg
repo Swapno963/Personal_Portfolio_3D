@@ -22,8 +22,8 @@
   <text x="816" y="224" text-anchor="middle" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="13">Role-scoped</text>
 
   <rect x="56" y="300" width="848" height="180" rx="12" fill="#100d25"/>
-  <text x="80" y="348" fill="#ffffff" font-family="Poppins, Inter, Arial, sans-serif" font-size="18" font-weight="600">Django / DRF / tenant-scoped models</text>
-  <text x="80" y="384" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="15">UUID PKs, restaurant FK on staff/menu/orders, role choices (owner, manager, kitchen, waiter).</text>
-  <text x="80" y="416" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="15">Data isolation is a schema constraint, not a UI filter. Source available on request.</text>
-  <text x="80" y="448" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="15">Not positioning this as a polished consumer app - the work is the multi-tenant model.</text>
+  <text x="80" y="348" fill="#ffffff" font-family="Poppins, Inter, Arial, sans-serif" font-size="18" font-weight="600">Django API + Next.js · dedicated EC2 · MCP for QueryMind</text>
+  <text x="80" y="384" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="15">UUID PKs, restaurant FK on staff/menu/orders, role-scoped tools (owner, kitchen, waiter, cashier).</text>
+  <text x="80" y="416" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="15">Own compose stack: nginx → API /mcp and Next.js. GHA publishes api-* / web-* images to ECR.</text>
+  <text x="80" y="448" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="15">Tenant isolation is a schema constraint. Live pilot: easyserve.clustorflow.com.</text>
 </svg>

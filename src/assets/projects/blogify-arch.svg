@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="bfTitle">
+  <title id="bfTitle">Blogify full-stack architecture</title>
+  <rect width="960" height="540" rx="24" fill="#0b0a1a"/>
+  <rect x="24" y="24" width="912" height="492" rx="18" fill="#151030"/>
+  <text x="48" y="68" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="16" letter-spacing="2">BLOGIFY / FULL-STACK BLOGGING</text>
+  <text x="48" y="104" fill="#ffffff" font-family="Poppins, Inter, Arial, sans-serif" font-size="24" font-weight="700">DRF API + React SPA with JWT and social posts</text>
+
+  <rect x="56" y="150" width="400" height="120" rx="12" fill="#100d25" stroke="#915EFF"/>
+  <text x="256" y="196" text-anchor="middle" fill="#ffffff" font-family="Poppins, Inter, Arial, sans-serif" font-size="18" font-weight="600">React + Vite SPA</text>
+  <text x="256" y="226" text-anchor="middle" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="13">Feed, write, profiles, search · Vercel</text>
+
+  <rect x="504" y="150" width="400" height="120" rx="12" fill="#100d25" stroke="#56ccf2"/>
+  <text x="704" y="196" text-anchor="middle" fill="#ffffff" font-family="Poppins, Inter, Arial, sans-serif" font-size="18" font-weight="600">Django / DRF API</text>
+  <text x="704" y="226" text-anchor="middle" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="13">SimpleJWT · Gunicorn · Docker</text>
+
+  <polyline points="456,210 504,210" fill="none" stroke="#aaa6c3" stroke-width="2"/>
+
+  <rect x="56" y="300" width="200" height="88" rx="12" fill="#100d25" stroke="#38ef7d"/>
+  <text x="156" y="336" text-anchor="middle" fill="#ffffff" font-family="Poppins, Inter, Arial, sans-serif" font-size="15" font-weight="600">Auth</text>
+  <text x="156" y="360" text-anchor="middle" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="12">Access + refresh</text>
+
+  <rect x="272" y="300" width="200" height="88" rx="12" fill="#100d25" stroke="#f5af19"/>
+  <text x="372" y="336" text-anchor="middle" fill="#ffffff" font-family="Poppins, Inter, Arial, sans-serif" font-size="15" font-weight="600">Posts</text>
+  <text x="372" y="360" text-anchor="middle" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="12">CRUD · pagination</text>
+
+  <rect x="488" y="300" width="200" height="88" rx="12" fill="#100d25" stroke="#56ccf2"/>
+  <text x="588" y="336" text-anchor="middle" fill="#ffffff" font-family="Poppins, Inter, Arial, sans-serif" font-size="15" font-weight="600">Social</text>
+  <text x="588" y="360" text-anchor="middle" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="12">Likes · comments</text>
+
+  <rect x="704" y="300" width="200" height="88" rx="12" fill="#100d25" stroke="#915EFF"/>
+  <text x="804" y="336" text-anchor="middle" fill="#ffffff" font-family="Poppins, Inter, Arial, sans-serif" font-size="15" font-weight="600">Postgres</text>
+  <text x="804" y="360" text-anchor="middle" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="12">Author-only writes</text>
+
+  <rect x="56" y="416" width="848" height="68" rx="12" fill="#100d25" stroke="#aaa6c3"/>
+  <text x="76" y="446" fill="#ffffff" font-family="Poppins, Inter, Arial, sans-serif" font-size="15" font-weight="600">Infinite scroll feed · search · favorites · private write route</text>
+  <text x="76" y="468" fill="#aaa6c3" font-family="Poppins, Inter, Arial, sans-serif" font-size="13">Personal product  API packaged for deploy; frontend talks over JWT-aware Axios.</text>
+</svg>

@@ -48,7 +48,7 @@ Init is privacy-safe:
 | `scroll_depth` | 25 / 50 / 75 / 90, once each per page | `page`, `depth` |
 | `external_link_click` | Any other outbound URL | `destination` (host only) |
 
-Stable project IDs: `education_saas` (backend), `querymind` (ai), `shopverse` (backend), `restaurant_qr` (saas). Resume versions: `backend_v3`, `devops_v1`.
+Stable project IDs: `education_saas` (backend), `querymind` (ai), `shopverse` (backend), `restaurant_qr` (saas), `magicstream` (backend), `blogify` (fullstack). Resume versions: `backend_v3`, `devops_v1`.
 
 Do **not** send names, emails, message bodies, or full URLs with query strings.
 
