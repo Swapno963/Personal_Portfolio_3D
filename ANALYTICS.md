@@ -30,7 +30,7 @@ Init is privacy-safe:
 | Event | When | Properties |
 | --- | --- | --- |
 | `page_view` | Route change (`/` or `/projects/:slug`) | `page` |
-| `resume_view` | Open a resume PDF in a new tab | `resume_version` (`backend_v3` or `devops_v1`) |
+| `resume_view` | Open a resume PDF in a new tab | `resume_version` (`backend_v3` or `devops_v2`) |
 | `resume_download` | Explicit download click | `resume_version` |
 | `project_view` | Card ~50% visible **or** case-study page mount | `project`, `project_category` |
 | `project_expand` | Click “Case study” / land on case-study route | `project` |
@@ -48,7 +48,7 @@ Init is privacy-safe:
 | `scroll_depth` | 25 / 50 / 75 / 90, once each per page | `page`, `depth` |
 | `external_link_click` | Any other outbound URL | `destination` (host only) |
 
-Stable project IDs: `education_saas` (backend), `querymind` (ai), `shopverse` (backend), `restaurant_qr` (saas), `magicstream` (backend), `blogify` (fullstack). Resume versions: `backend_v3`, `devops_v1`.
+Stable project IDs: `education_saas` (backend), `querymind` (ai), `shopverse` (backend), `restaurant_qr` (saas), `magicstream` (backend), `blogify` (fullstack). Resume versions: `backend_v3`, `devops_v2`.
 
 Do **not** send names, emails, message bodies, or full URLs with query strings.
 
@@ -73,7 +73,7 @@ https://YOUR_DOMAIN/?utm_source=application&utm_medium=job_application&utm_campa
 **USA DevOps applications**
 
 ```
-https://YOUR_DOMAIN/?utm_source=application&utm_medium=job_application&utm_campaign=usa_devops&utm_content=resume_devops_v1
+https://YOUR_DOMAIN/?utm_source=application&utm_medium=job_application&utm_campaign=usa_devops&utm_content=resume_devops_v2
 ```
 
 **Europe backend applications**

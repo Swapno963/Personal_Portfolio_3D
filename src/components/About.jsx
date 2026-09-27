@@ -64,7 +64,9 @@ const About = () => {
         PostgreSQL and Redis. QueryMind is the system I use to talk about
         AI in production: LangGraph, allow-lists, a SQL function denylist,
         and an MCP client so restaurant writes never go through generated SQL.
-        Chat stays read-only. I can ship React/Next when a product needs a UI.
+        Chat stays read-only. ServeEasy’s app host is a separate EC2; a second
+        instance runs Prometheus, Grafana, Loki, and Alertmanager for that host.
+        I can ship React/Next when a product needs a UI.
         I am not positioning myself as a frontend or Three.js specialist, and
         I do not list Kubernetes as a core skill.
       </motion.p>

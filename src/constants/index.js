@@ -23,7 +23,7 @@ export const profile = {
   oneLiner:
     "Backend engineer building APIs, data systems, and controlled AI execution — then putting them on AWS with Docker, Terraform, and CI/CD.",
   pitch:
-    "Python and Go backends, PostgreSQL, Docker, AWS, and CI/CD. Recent work: QueryMind (LangGraph NL-to-SQL with fail-closed validation), ServeEasy (QR ordering + MCP on its own EC2), and MagicStream (Go/Gin movie catalog with cookie JWT).",
+    "Python and Go backends, PostgreSQL, Docker, AWS, and CI/CD. Recent work: QueryMind (LangGraph NL-to-SQL with fail-closed validation), ServeEasy (QR ordering on its own EC2, with Prometheus, Grafana, and Loki on a second host), and MagicStream (Go/Gin movie catalog with cookie JWT).",
   chips: ["Python", "Django", "PostgreSQL", "LangGraph", "MCP", "Docker", "AWS"],
   email: "swapno963@gmail.com",
   github: "https://github.com/Swapno963",
@@ -42,7 +42,7 @@ export const profile = {
       id: "devops",
       label: "DevOps",
       href: "/Swapno-Mondol-DevOps-Engineer.pdf",
-      version: "devops_v1",
+      version: "devops_v2",
       downloadName: "Swapno-Mondol-DevOps-Engineer.pdf",
     },
   ],
@@ -106,7 +106,14 @@ const skillGroups = [
   {
     title: "Infra & DevOps",
     level: "Intermediate → strong",
-    items: ["Docker / Compose", "Linux", "GitHub Actions", "Nginx"],
+    items: [
+      "Docker / Compose",
+      "Linux",
+      "GitHub Actions",
+      "Nginx",
+      "Prometheus / Grafana",
+      "Loki / Alertmanager",
+    ],
   },
   {
     title: "Cloud",
@@ -174,17 +181,22 @@ const productionProofs = [
   {
     title: "GitHub Actions before images move",
     detail:
-      "Education and ServeEasy: format/test, then publish SHA-tagged images to ECR (ServeEasy uses api-* / web-* tags on one repo).",
+      "Education and ServeEasy: tests, then publish SHA-tagged images to ECR. ServeEasy uses api-* on serveeasy-backend and web-* on serveeasy-frontend. Publish runs only after CI succeeds on main.",
   },
   {
     title: "Terraform for the box the app sits on",
     detail:
-      "VPC, subnets, security groups, and EC2 for the education and QueryMind stacks — infrastructure is code, not a console click-path.",
+      "VPC, subnets, security groups, and EC2 for the education, QueryMind, and ServeEasy stacks — including ServeEasy’s second observability host.",
   },
   {
     title: "Nginx + dedicated hosts",
     detail:
       "QueryMind and ServeEasy each own an EC2 + nginx path (chatapp vs easyserve). Workers and backups stay off the request path where the product needs them.",
+  },
+  {
+    title: "Observability off the app box",
+    detail:
+      "ServeEasy’s t3.micro exports Node Exporter, cAdvisor, API, and Postgres metrics. A second t3.small runs Prometheus, Grafana, Loki, and Alertmanager. Alerts cover CPU, memory, disk, restarts, API 5xx, and Postgres connections. No pager yet, and app logs stay on the app host.",
   },
 ];
 
@@ -497,7 +509,7 @@ const projects = [
       "Each restaurant is a tenant. A QR code on a table should only ever create orders inside that restaurant’s menu, staff, and branch — never leak across accounts. Staff tools must be role-scoped, not ‘every waiter sees every admin action’.",
     role: "Backend + deploy: Django/DRF multi-tenant ordering, MCP server, Next.js UI, dedicated EC2/ECR pipeline.",
     description:
-      "Multi-tenant QR ordering with staff roles, streamable MCP at /mcp (HMAC writes, JWT restaurant scope), and a dedicated EC2 stack (nginx → Django API + Next.js). Live: easyserve.clustorflow.com. Integrates QueryMind for staff assistant flows.",
+      "Multi-tenant QR ordering with staff roles, streamable MCP at /mcp, and a dedicated EC2 stack (nginx → Django API + Next.js). A second EC2 in the same VPC runs Prometheus, Grafana, Loki, and Alertmanager. Live: easyserve.clustorflow.com.",
     tags: [
       { name: "django", color: "blue-text-gradient" },
       { name: "mcp", color: "green-text-gradient" },
@@ -515,7 +527,12 @@ const projects = [
       "Docker Compose",
       "Nginx",
       "AWS EC2 / ECR",
+      "Terraform",
       "GitHub Actions",
+      "Prometheus",
+      "Grafana",
+      "Loki",
+      "Alertmanager",
     ],
     diagrams: [
       {
@@ -526,19 +543,22 @@ const projects = [
     screenshots: [],
     caseStudy: {
       summary:
-        "ServeEasy is a multi-tenant restaurant product: QR ordering for diners, role-scoped staff tools, an MCP server so QueryMind can list and call those tools, and its own EC2 compose stack — not shared with QueryMind’s host.",
+        "ServeEasy is a multi-tenant restaurant product on its own EC2: QR ordering, role-scoped staff tools, and an MCP server QueryMind can call. A second t3.small in the same VPC watches the app host. There is no second app instance, no autoscaling, and no automatic remediation.",
       problem:
         "A waiter, chef, cashier, and owner do not share one permission set. Cross-restaurant leakage is a product failure, not a nice-to-have.",
       users:
         "Diners scan a table QR. Waiters, chefs, cashiers, and owners use staff tools. QueryMind is an MCP client, not a second ACL.",
       constraints:
-        "Restaurant JWT is the tenant and the role. QueryMind must not add a second permission table or advertise tools the role cannot call. HTTP :80 is a private pilot; TLS before real guest traffic.",
+        "Restaurant JWT is the tenant and the role. QueryMind must not add a second permission table. HTTP :80 is a private pilot; TLS before real guest traffic. The app host is a t3.micro with hard memory caps and Postgres limited to 40 connections. Monitoring stays on a separate t3.small so Prometheus does not compete with the database.",
       architecture: [
         "Django/DRF API: restaurants, menus, tables, orders, staff, payments (trial + manual billing; QueryMind quota enforced in API).",
         "Next.js UI on the same origin via nginx (/ → web:3000, /api /mcp /health → api:8000).",
         "MCP at /mcp (streamable HTTP, ASGI/Gunicorn+Uvicorn). tools/list filtered by role; catalog required overlaid on ASGI schemas.",
-        "Writes require HMAC confirmed + confirmation_id (10 minute TTL). QueryMind retries that handshake once on the API surface.",
-        "Bidirectional integration: ServeEasy calls QueryMind messages API; QueryMind org mcp_server_url points at ServeEasy /mcp.",
+        "Writes require HMAC confirmed + confirmation_id (10 minute TTL). QueryMind retries that handshake once on the API surface. ServeEasy calls QueryMind’s messages API; QueryMind’s org MCP URL points at ServeEasy /mcp.",
+        "Terraform in the same VPC: app EC2 (t3.micro) and observability EC2 (t3.small, 20 GiB encrypted disk).",
+        "Prometheus scrapes the app private IP every 15 seconds: Node Exporter :9100, API /metrics/ on :9101, Postgres exporter :9187, cAdvisor :8088. Those ports accept traffic only from the observability security group.",
+        "Grafana on :3000 is provisioned with host, API, and Postgres dashboards. Loki stores the observability host’s container logs. Alloy on that host ships them. App container logs stay on the app server.",
+        "Alertmanager receives CPU, memory, disk, restart, API 5xx, and Postgres connection alerts. The receiver has no email or chat target yet.",
       ],
       decisions: [
         {
@@ -547,7 +567,7 @@ const projects = [
         },
         {
           title: "Dedicated EC2, not QueryMind’s box",
-          body: "/opt/serveeasy, compose project serveeasy, ECR repo serve-easy with api-* and web-* tags. Different public IP and DNS from chatapp.clustorflow.com.",
+          body: "/opt/serveeasy, compose project serveeasy. ECR repositories serveeasy-backend (api-*) and serveeasy-frontend (web-*). Different public IP and DNS from chatapp.clustorflow.com. Publish workflows run only after CI succeeds on main. Deploy is still started by hand.",
         },
         {
           title: "Catalog required on ASGI list",
@@ -557,17 +577,30 @@ const projects = [
           title: "Confirmation stays HMAC",
           body: "Local execute_tool still checks the token. QueryMind-routed writes complete in one graph run by sending the confirmation once. The LLM cannot bind confirmed / confirmation_id.",
         },
+        {
+          title: "Monitoring on a second host",
+          body: "The app box has about 1 GiB. Prometheus, Loki, and Grafana would steal that from Postgres. Terraform adds a t3.small. Prometheus keeps 7 days. Replacing that instance deletes the metrics and logs, because they live on its disk.",
+        },
+        {
+          title: "Alerts without a pager",
+          body: "Rules fire for CPU above 85%, memory or disk below 15%, a ServeEasy container restarting more than twice in 15 minutes, API 5xx above 5% while traffic is flowing, and Postgres above 32 of 40 connections. Alertmanager groups them. Nothing emails or pages yet.",
+        },
       ],
       implementation: [
         "Role-filtered tool names: waiter reads, chef status, cashier mark paid, owner menu writes.",
         "Missing identity args return needs_parameters, not a guessed row.",
         "Replay of the same confirmation_id returns the saved result.",
         "GHA publish workflows for API and web; deploy workflow pulls tagged images onto the ServeEasy host.",
+        "API counter serveeasy_http_requests_total by method and status. No latency histogram.",
+        "Provisioned Grafana dashboards: host CPU, memory, and disk; API request rate and 5xx ratio; Postgres connections and exporter up.",
+        "ServeEasy does not run Redis, so there is no Redis exporter.",
       ],
       challenges: [
         "Thin tool schemas made QueryMind pick list_orders for ‘show order 123’. Scored matching plus catalog required closed that gap.",
         "Chat must stay read-only even when a write tool is on the server.",
         "WSGI runserver is not enough for streamable MCP — ASGI is required for QueryMind as a client.",
+        "Grafana :3000 and Alertmanager :9093 are open to the internet, with a Grafana password and sign-up disabled. There is no TLS. The same metrics view is also reachable at /api/metrics/ through nginx.",
+        "Alloy only ships logs from the observability host. An API traceback is still in Docker json logs on the app server, capped at 10 MiB times three files.",
       ],
       deploy: [
         "Live at easyserve.clustorflow.com. MCP path is /mcp. Same-origin API at /api/.",
@@ -577,11 +610,13 @@ const projects = [
         "A restaurant product QueryMind can call without QueryMind inventing tools.",
         "In-process tests cover role-filtered tools/list, catalog required, and HMAC confirmation.",
         "Repeatable publish → ECR → EC2 deploy path separate from QueryMind.",
+        "A dashboard that separates host pressure, a container restart loop, API 5xx, and Postgres connection use before SSH.",
       ],
       lessons: [
         "Do not advertise every tool and return 403. Filter the catalog.",
         "Do not let the model ‘know’ it must not call admin tools. The server is the ACL.",
         "Two products on two hosts beats one shared nginx that forgets which compose project owns :80.",
+        "Do not put the metrics stack on the same 1 GiB host as Postgres. Do not claim a pager, HA, or app-log search that is not wired.",
       ],
     },
   },

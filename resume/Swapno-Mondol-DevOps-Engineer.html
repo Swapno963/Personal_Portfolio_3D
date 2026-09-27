@@ -4,14 +4,14 @@
   <meta charset="utf-8" />
   <title>Swapno Mondol — DevOps Engineer</title>
   <style>
-    @page { size: A4; margin: 12mm 13mm; }
+    @page { size: A4; margin: 10mm 12mm; }
     * { box-sizing: border-box; }
     html, body {
       margin: 0;
       padding: 0;
       font-family: "Calibri", "Liberation Sans", "Segoe UI", Arial, sans-serif;
-      font-size: 10.2pt;
-      line-height: 1.3;
+      font-size: 9.7pt;
+      line-height: 1.25;
       color: #1a1a1a;
     }
     h1 {
@@ -30,7 +30,7 @@
     .meta { color: #333; font-size: 9.4pt; }
     .meta a { color: #1a365d; text-decoration: none; }
     h2 {
-      margin: 10px 0 3px;
+      margin: 7px 0 2px;
       font-size: 10pt;
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -40,8 +40,8 @@
     }
     p { margin: 0 0 3px; }
     ul { margin: 1px 0 0 16px; padding: 0; }
-    li { margin: 0 0 3px; }
-    .job { margin-bottom: 7px; }
+    li { margin: 0 0 2px; }
+    .job { margin-bottom: 5px; }
     .job-head {
       display: flex;
       justify-content: space-between;
@@ -73,26 +73,26 @@
   <p>
     DevOps Engineer who takes services from application code through Docker, Terraform, GitHub Actions,
     and production on AWS and on-premises Windows Server. Owns repeatable deploys, SHA-tagged images,
-    and Linux/Nginx operation. Debugs live systems and automates with Python.
+    Linux/Nginx operation, and alerts for host, API, and database health.
   </p>
 
   <h2>Skills</h2>
-  <p><strong>Infrastructure:</strong> Docker, Docker Compose, AWS (EC2, VPC, S3, ECR, IAM), Terraform, GitHub Actions, Linux, Nginx</p>
-  <p><strong>Automation:</strong> Python, Git, cron / scheduled backups, production deploys</p>
+  <p><strong>Infrastructure:</strong> Docker, Docker Compose, AWS (EC2, VPC, S3, ECR, IAM), Terraform, Linux, Nginx, Prometheus, Grafana, Loki, Alertmanager</p>
+  <p><strong>Automation:</strong> Python, Git, GitHub Actions, cron / scheduled backups, production deploys</p>
   <p><strong>Application context:</strong> Django, FastAPI, Go, PostgreSQL</p>
   <p><strong>Additional:</strong> Redis, MongoDB, Kubernetes (familiar — not production)</p>
 
   <h2>Experience</h2>
   <div class="job">
     <div class="job-head">
-      <span>Backend Developer — Meraki Innovation</span>
+      <span>DevOps / Backend Engineer — Meraki Innovation</span>
       <span>Jan 2025 – Present</span>
     </div>
     <div class="job-sub">Mirpur 2, Bangladesh</div>
     <ul>
       <li>Owned CI/CD and Terraform-based production deploys across on-prem Windows Server and AWS so releases are repeatable rather than one-off copies.</li>
-      <li>Operated a live multi-tenant dashboard (multi-engine data access, file uploads, RBAC), including the release path those features depend on.</li>
       <li>Ran production Docker Compose on EC2 for a client Education SaaS: Nginx in front, health checks, and daily PostgreSQL dumps to S3.</li>
+      <li>Operated the release path for a live multi-tenant dashboard so widget and RBAC changes shipped through those same deploys, not as one-off copies.</li>
     </ul>
   </div>
   <div class="job">
@@ -116,35 +116,20 @@
     <ul>
       <li>Provisioned VPC, subnets, security groups, and EC2 with Terraform. Compose on EC2 is the deploy unit (Nginx, API, workers, Postgres).</li>
       <li>GitHub Actions runs format, vet, lint, tests, and image vulnerability scanning, then publishes SHA-tagged images to ECR. A manual deploy workflow rolls the compose stack. Secrets via GitHub Actions and EC2 env files; IAM roles split for CI/CD vs infrastructure.</li>
-      <li>Daily versioned Postgres dumps to S3 with a documented restore path. Observability beyond health checks is not shipped. Application source is private; the public repo is the infrastructure write-up.</li>
-    </ul>
-  </div>
-  <div class="job">
-    <p class="proj-title">ShopVerse — containerized FastAPI services
-      <span class="muted">| FastAPI, PostgreSQL, MongoDB, Docker ·
-        <a href="https://github.com/Swapno963/Microservice-with-FastAPI">GitHub</a></span>
-    </p>
-    <ul>
-      <li>Split user, product, inventory, and order into independently containerized FastAPI services with Dockerfiles and Compose. Lab-deployable backend, not a live storefront.</li>
-    </ul>
-  </div>
-  <div class="job">
-    <p class="proj-title">Query Mind — natural-language analytics over client databases
-      <span class="muted">| Django, PostgreSQL ·
-        <a href="https://chatapp.clustorflow.com">Live</a> ·
-        <a href="https://github.com/Swapno963/Query-Mind">GitHub</a></span>
-    </p>
-    <ul>
-      <li>Live Django service that generates validated, read-only SQL against a tenant-scoped client database, with an MCP client for restaurant tools. Included as a running product, not as a CI/CD case study.</li>
+      <li>Ran daily PostgreSQL dumps to S3 with a documented rebuild: new EC2, restore the dump, redeploy Compose, reattach S3. Single-EC2 is a known SPOF. Observability beyond health checks is not shipped; application source is private.</li>
     </ul>
   </div>
   <div class="job">
     <p class="proj-title">ServeEasy — live restaurant product
-      <span class="muted">| Django, Docker ·
+      <span class="muted">| Django, Docker, PostgreSQL, Nginx, Prometheus ·
         <a href="https://easyserve.clustorflow.com">Live</a></span>
     </p>
     <ul>
-      <li>Operated the public restaurant ordering site and its MCP endpoint as a running Django service. Not used here as an infrastructure write-up.</li>
+      <li>Operated a dedicated EC2 Compose stack (Nginx, Django API, Postgres, MCP). Application source is private.</li>
+      <li>Stopped a recurring PostgreSQL “too many clients” failure by tuning how the API holds database connections.</li>
+      <li>Cleared EC2 root-disk pressure from ~90% to ~55% using df, docker system df, and container stats, without replacing the instance.</li>
+      <li>Added a second EC2 in the same VPC for Prometheus, Grafana, Loki, and Alertmanager; Alloy ships that host’s container logs to Loki.</li>
+      <li>App host exports Node Exporter, cAdvisor, API, and Postgres metrics; only the observability security group can scrape them. Alerts: CPU above 85%, memory or disk below 15%, restart loops, API 5xx above 5%, Postgres above 32 of 40.</li>
     </ul>
   </div>
 </body>
