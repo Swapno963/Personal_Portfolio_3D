@@ -42,7 +42,7 @@ export const profile = {
       id: "devops",
       label: "DevOps",
       href: "/Swapno-Mondol-DevOps-Engineer.pdf",
-      version: "devops_v2",
+      version: "devops_v3",
       downloadName: "Swapno-Mondol-DevOps-Engineer.pdf",
     },
   ],
@@ -504,19 +504,19 @@ const projects = [
     slug: "restaurant-qr",
     project_category: "saas",
     hasCaseStudy: true,
-    sourceStatus: "public",
+    sourceStatus: "writeup",
     problem:
       "Each restaurant is a tenant. A QR code on a table should only ever create orders inside that restaurant’s menu, staff, and branch — never leak across accounts. Staff tools must be role-scoped, not ‘every waiter sees every admin action’.",
     role: "Backend + deploy: Django/DRF multi-tenant ordering, MCP server, Next.js UI, dedicated EC2/ECR pipeline.",
     description:
-      "Multi-tenant QR ordering with staff roles, streamable MCP at /mcp, and a dedicated EC2 stack (nginx → Django API + Next.js). A second EC2 in the same VPC runs Prometheus, Grafana, Loki, and Alertmanager. Live: easyserve.clustorflow.com.",
+      "Multi-tenant QR ordering with staff roles, streamable MCP at /mcp, and a dedicated EC2 stack (nginx → Django API + Next.js). A second EC2 in the same VPC runs Prometheus, Grafana, Loki, and Alertmanager. Application source is private. Live: easyserve.clustorflow.com.",
     tags: [
       { name: "django", color: "blue-text-gradient" },
       { name: "mcp", color: "green-text-gradient" },
       { name: "multi-tenant", color: "pink-text-gradient" },
     ],
     image: restaurantFlow,
-    source_code_link: "https://github.com/Swapno963/Resturent-Backend",
+    source_code_link: "https://github.com/Swapno963/serveeasy-observability",
     live_link: "https://easyserve.clustorflow.com",
     stack: [
       "Django / DRF",
@@ -604,7 +604,7 @@ const projects = [
       ],
       deploy: [
         "Live at easyserve.clustorflow.com. MCP path is /mcp. Same-origin API at /api/.",
-        "Frontend: github.com/Swapno963/Resturent-Frontend. Backend: github.com/Swapno963/Resturent-Backend.",
+        "Application source is private. The public observability repo is the live stack: Compose, scrape config, alert rules, and the three Grafana dashboards. github.com/Swapno963/serveeasy-observability.",
       ],
       results: [
         "A restaurant product QueryMind can call without QueryMind inventing tools.",

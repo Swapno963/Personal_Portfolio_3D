@@ -73,12 +73,12 @@
   <p>
     DevOps Engineer who takes services from application code through Docker, Terraform, GitHub Actions,
     and production on AWS and on-premises Windows Server. Owns repeatable deploys, SHA-tagged images,
-    Linux/Nginx operation, and alerts for host, API, and database health.
+    and Linux/Nginx operation. Debugs live systems and automates with Python.
   </p>
 
   <h2>Skills</h2>
-  <p><strong>Infrastructure:</strong> Docker, Docker Compose, AWS (EC2, VPC, S3, ECR, IAM), Terraform, Linux, Nginx, Prometheus, Grafana, Loki, Alertmanager</p>
-  <p><strong>Automation:</strong> Python, Git, GitHub Actions, cron / scheduled backups, production deploys</p>
+  <p><strong>Infrastructure:</strong> Docker, Docker Compose, AWS (EC2, VPC, S3, ECR, IAM), Terraform, GitHub Actions, Linux, Nginx, Prometheus, Grafana, Loki, Alertmanager</p>
+  <p><strong>Automation:</strong> Python, Git, cron / scheduled backups, production deploys</p>
   <p><strong>Application context:</strong> Django, FastAPI, Go, PostgreSQL</p>
   <p><strong>Additional:</strong> Redis, MongoDB, Kubernetes (familiar — not production)</p>
 
@@ -116,20 +116,39 @@
     <ul>
       <li>Provisioned VPC, subnets, security groups, and EC2 with Terraform. Compose on EC2 is the deploy unit (Nginx, API, workers, Postgres).</li>
       <li>GitHub Actions runs format, vet, lint, tests, and image vulnerability scanning, then publishes SHA-tagged images to ECR. A manual deploy workflow rolls the compose stack. Secrets via GitHub Actions and EC2 env files; IAM roles split for CI/CD vs infrastructure.</li>
-      <li>Ran daily PostgreSQL dumps to S3 with a documented rebuild: new EC2, restore the dump, redeploy Compose, reattach S3. Single-EC2 is a known SPOF. Observability beyond health checks is not shipped; application source is private.</li>
+      <li>Ran daily PostgreSQL dumps to S3 and documented instance-loss recovery: provision a new EC2, restore the dump, redeploy the compose stack, and reattach S3 — no managed failover. Single-EC2 is a known SPOF recovered via rebuild-from-backup. Observability beyond health checks is not shipped; application source is private.</li>
+    </ul>
+  </div>
+  <div class="job">
+    <p class="proj-title">ShopVerse — containerized FastAPI services
+      <span class="muted">| FastAPI, PostgreSQL, MongoDB, Docker ·
+        <a href="https://github.com/Swapno963/Microservice-with-FastAPI">GitHub</a></span>
+    </p>
+    <ul>
+      <li>Split user, product, inventory, and order into independently containerized FastAPI services with Dockerfiles and Compose. Lab-deployable backend, not a live storefront.</li>
+    </ul>
+  </div>
+  <div class="job">
+    <p class="proj-title">Query Mind — natural-language analytics over client databases
+      <span class="muted">| Django, PostgreSQL, Docker, GitHub Actions ·
+        <a href="https://chatapp.clustorflow.com">Live</a> ·
+        <a href="https://github.com/Swapno963/Query-Mind">GitHub</a></span>
+    </p>
+    <ul>
+      <li>Docker, Nginx, GitHub Actions (ECR publish + SSH deploy), and Terraform on a dedicated EC2. Fail-closed SQL and an MCP client run behind that stack. Education SaaS remains the public infrastructure write-up.</li>
     </ul>
   </div>
   <div class="job">
     <p class="proj-title">ServeEasy — live restaurant product
       <span class="muted">| Django, Docker, PostgreSQL, Nginx, Prometheus ·
-        <a href="https://easyserve.clustorflow.com">Live</a></span>
+        <a href="https://easyserve.clustorflow.com">Live</a> ·
+        <a href="https://github.com/Swapno963/serveeasy-observability">Observability</a></span>
     </p>
     <ul>
-      <li>Operated a dedicated EC2 Compose stack (Nginx, Django API, Postgres, MCP). Application source is private.</li>
-      <li>Stopped a recurring PostgreSQL “too many clients” failure by tuning how the API holds database connections.</li>
-      <li>Cleared EC2 root-disk pressure from ~90% to ~55% using df, docker system df, and container stats, without replacing the instance.</li>
-      <li>Added a second EC2 in the same VPC for Prometheus, Grafana, Loki, and Alertmanager; Alloy ships that host’s container logs to Loki.</li>
-      <li>App host exports Node Exporter, cAdvisor, API, and Postgres metrics; only the observability security group can scrape them. Alerts: CPU above 85%, memory or disk below 15%, restart loops, API 5xx above 5%, Postgres above 32 of 40.</li>
+      <li>Operated a dedicated EC2 compose stack (Nginx in front of Django API and MCP), separate from Query Mind’s host. Application source is private.</li>
+      <li>Diagnosed and resolved a production PostgreSQL connection-exhaustion incident by analyzing application connection-pool behavior and tuning database connection management, preventing recurring too many clients failures.</li>
+      <li>Investigated EC2 root-disk pressure at ~90% using df, docker system df, and container stats; reclaimed space to ~55% and restored a working host without replacing the instance.</li>
+      <li>Added a second EC2 for Prometheus, Grafana, Loki, and Alertmanager. The public repo documents that live stack. Alerts cover CPU above 85%, memory or disk below 15%, restart loops, API 5xx above 5%, and Postgres above 32 of 40. No pager yet.</li>
     </ul>
   </div>
 </body>
